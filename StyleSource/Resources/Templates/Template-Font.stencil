@@ -1,0 +1,51 @@
+// Generated using ThemeSource, by Bruno Fernandes
+
+import UIKit
+
+// swiftlint:disable superfluous_disable_command
+// swiftlint:disable file_length
+
+// swiftlint:disable explicit_type_interface identifier_name line_length nesting type_body_length type_name
+
+private final class BundleToken {}
+
+public struct ThemeFontConvertible {
+    let name: String
+    let family: String
+    let path: String
+
+    public func font(size: CGFloat) -> UIFont {
+        guard let font = UIFont(font: self, size: size) else {
+            return UIFont.systemFont(ofSize: size)
+        }
+        return font
+    }
+
+    public func register() {
+        guard let url = url else { return }
+        var errorRef: Unmanaged<CFError>?
+        CTFontManagerRegisterFontsForURL(url as CFURL, .process, &errorRef)
+    }
+
+    private var url: URL? {
+        let bundle = Bundle(for: BundleToken.self)
+        return bundle.url(forResource: path, withExtension: nil)
+    }
+}
+
+public extension UIFont {
+    public convenience init!(font: ThemeFontConvertible, size: CGFloat) {
+
+        if !UIFont.fontNames(forFamilyName: font.family).contains(font.name) {
+            font.register()
+        }
+
+        self.init(name: font.name, size: size)
+    }
+}
+
+public enum ThemeFont {
+    {% for data in fonts %}
+    public static let {{ data.key }} = ThemeFontConvertible(name: "{{ data.font.name }}", family: "{{ data.font.family }}", path: "{{ data.font.path }}")
+    {% endfor %}
+}
