@@ -126,7 +126,7 @@ public enum ThemeStyle {
                         {% if style.name|hasSuffix:"font" %}
                             .with(\.{{ style.name }}, setTo: ThemeFont.{{ style.data.name }}.font(size: {{ style.data.size }}))
                         {% elif style.name|hasSuffix:"color" %}
-                            .with(\.{{ style.name }}, setTo: {{ style.data|colors: }} )
+                            .with(\.{{ style.name }}, setTo: {{ style.data|colors: }})
                         {% elif style.name == "layer" %}
                         {% for value in style.data|transform: %}
                             {% if value.name|hasSuffix:"color" %}
