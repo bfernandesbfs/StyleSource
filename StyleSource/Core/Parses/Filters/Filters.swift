@@ -64,32 +64,18 @@ public extension Filters {
             return string.lowercased().hasSuffix(suffix)
         }
 
-        public static func transform(_ value: Any?) throws -> [String] {
-            guard let value = value as? Element else {
-                return []
-            }
-
-
-
-            return []
-        }
-
-        public static func inset(_ value: Any?) throws -> String? {
-            guard let dict = value as? [String: Any] else {
-                return nil
-            }
-
-            return "UIEdgeInsets(top: \(dict["top"]!), left: \(dict["left"]!), bottom: \(dict["bottom"]!), right: \(dict["right"]!))"
-        }
-
-        public static func colors(_ value: Any?) throws -> String? {
+        public static func removePrefix(_ value: Any?, arguments: [Any?]) throws -> String {
             let string = try Filters.parseString(from: value)
+            let prefix = try Filters.parseStringArgument(from: arguments)
+            return string.replacingOccurrences(of: prefix, with: String())
+        }
 
-            if string.hasPrefix("UI") || string.hasPrefix(".") {
-                return string
+        public static func transform(_ value: Any?) throws -> [String] {
+            guard let element = value as? Element else {
+                throw Error.invalidInputType
             }
 
-            return "ThemeColor.\(string)"
+            return try FilterBuilder(element).build()
         }
     }
 }

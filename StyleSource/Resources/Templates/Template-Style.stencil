@@ -62,7 +62,7 @@ public extension Themeable where Self: UIView {
 public enum ThemeStyle {
 
     {% for group in groupStyle %}
-    enum {{ group.name }}: Styleable {
+    enum {{ group.name|removePrefix:"UI" }}: Styleable {
         case {{ group.cases|join:", " }}
 
         public func style(to object: {{ group.name }}) {
@@ -72,21 +72,9 @@ public enum ThemeStyle {
             case .{{ style.key }}:
                 theme = theme
                 {% for element in style.elements %}
-
                     {% for value in element|transform: %}
-
-                    {% endfor %} 
-
-                    {% if element.childs.count > 0 %}
-                        
-                        {% for child in element.childs %}
-                            .with(\.{{element.key }}!.{{ child.key }}, setTo: {{ child.value }})
-                        {% endfor %}  
-
-                    {% else %}
-                    .with(\.{{ element.key }}, setTo: {{ element.value }})
-                    {% endif %}
-                    
+                    {{ value }}                     
+                    {% endfor %}  
                 {% endfor %}  
             {% endfor %}
             }

@@ -29,6 +29,7 @@
 		1527451C2143559A00202557 /* Template-Font.stencil in Resources */ = {isa = PBXBuildFile; fileRef = 152745192143559900202557 /* Template-Font.stencil */; };
 		1527451D2143559A00202557 /* Template-Color.stencil in Resources */ = {isa = PBXBuildFile; fileRef = 1527451A2143559900202557 /* Template-Color.stencil */; };
 		1527451E2143559A00202557 /* Template-Style.stencil in Resources */ = {isa = PBXBuildFile; fileRef = 1527451B2143559900202557 /* Template-Style.stencil */; };
+		15D525DC2145C5F70041161C /* FilterBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15D525DB2145C5F70041161C /* FilterBuilder.swift */; };
 		593C29B8451B0FE09B72E3AB /* Pods_StyleSource.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6434DCED3248C7BAA5AA12F3 /* Pods_StyleSource.framework */; };
 		C43EDFE02A62B18221F7B210 /* Pods_StyleSourceTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 59C659451B3859ABB9AEBC6E /* Pods_StyleSourceTests.framework */; };
 /* End PBXBuildFile section */
@@ -71,6 +72,7 @@
 		1527451A2143559900202557 /* Template-Color.stencil */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "Template-Color.stencil"; sourceTree = "<group>"; };
 		1527451B2143559900202557 /* Template-Style.stencil */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "Template-Style.stencil"; sourceTree = "<group>"; };
 		15D525DA21457E6F0041161C /* ThemeStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ThemeStyle.swift; path = ../../../../../Desktop/Generated/ThemeStyle.swift; sourceTree = "<group>"; };
+		15D525DB2145C5F70041161C /* FilterBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterBuilder.swift; sourceTree = "<group>"; };
 		48E90B42755DCB835E135110 /* Pods-StyleSourceTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-StyleSourceTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-StyleSourceTests/Pods-StyleSourceTests.release.xcconfig"; sourceTree = "<group>"; };
 		59C659451B3859ABB9AEBC6E /* Pods_StyleSourceTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_StyleSourceTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		6434DCED3248C7BAA5AA12F3 /* Pods_StyleSource.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_StyleSource.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -184,6 +186,7 @@
 			isa = PBXGroup;
 			children = (
 				152744F12143555600202557 /* Filters.swift */,
+				15D525DB2145C5F70041161C /* FilterBuilder.swift */,
 			);
 			path = Filters;
 			sourceTree = "<group>";
@@ -520,6 +523,7 @@
 				1527450D2143555600202557 /* LoaderTemplates.swift in Sources */,
 				152745132143555600202557 /* Command.swift in Sources */,
 				1527450C2143555600202557 /* Alias.swift in Sources */,
+				15D525DC2145C5F70041161C /* FilterBuilder.swift in Sources */,
 				1527450F2143555600202557 /* ColorModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
