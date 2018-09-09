@@ -70,6 +70,7 @@
 		152745192143559900202557 /* Template-Font.stencil */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "Template-Font.stencil"; sourceTree = "<group>"; };
 		1527451A2143559900202557 /* Template-Color.stencil */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "Template-Color.stencil"; sourceTree = "<group>"; };
 		1527451B2143559900202557 /* Template-Style.stencil */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "Template-Style.stencil"; sourceTree = "<group>"; };
+		15D525DA21457E6F0041161C /* ThemeStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ThemeStyle.swift; path = ../../../../../Desktop/Generated/ThemeStyle.swift; sourceTree = "<group>"; };
 		48E90B42755DCB835E135110 /* Pods-StyleSourceTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-StyleSourceTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-StyleSourceTests/Pods-StyleSourceTests.release.xcconfig"; sourceTree = "<group>"; };
 		59C659451B3859ABB9AEBC6E /* Pods_StyleSourceTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_StyleSourceTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		6434DCED3248C7BAA5AA12F3 /* Pods_StyleSource.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_StyleSource.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -122,6 +123,7 @@
 			isa = PBXGroup;
 			children = (
 				152744BC2143443F00202557 /* main.swift */,
+				15D525DA21457E6F0041161C /* ThemeStyle.swift */,
 				152744EB2143548800202557 /* Resources */,
 				152744EC2143555600202557 /* Core */,
 			);

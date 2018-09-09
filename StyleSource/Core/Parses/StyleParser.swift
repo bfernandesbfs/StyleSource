@@ -9,6 +9,12 @@
 import PathKit
 import Yams
 
+public struct StyleGroup {
+    var name: String
+    var cases: [String]
+    var styles: [Style]
+}
+
 public struct Style {
     var key: String
     var className: String
@@ -33,7 +39,7 @@ public struct Element {
     }
 }
 
-public func styleParse(path: Path) throws -> [Style] {
+public func styleParse(path: Path) throws -> [StyleGroup] {
 
     let data: String = try path.read()
 
@@ -62,7 +68,18 @@ public func styleParse(path: Path) throws -> [Style] {
         }
     }
 
-    return styles
+    var groups: [StyleGroup] = []
+    for name in Set(styles.map { $0.className }) {
+
+        let stys = styles.filter { $0.className == name }
+        let cases = stys.map { $0.key }
+
+        groups.append(StyleGroup(name: name,
+                                 cases: cases,
+                                 styles: stys))
+    }
+
+    return groups
 }
 
 public func findElement(data: Json) -> [Element] {
@@ -105,7 +122,7 @@ public class StyleParser {
         let data = try styleParse(path: input)
 
         let context = [
-            ConstantKeys.style: data
+            ConstantKeys.group: data
         ]
 
         return context
