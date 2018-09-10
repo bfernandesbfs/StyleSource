@@ -26,11 +26,9 @@
 		152745152143555600202557 /* Errors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 152745022143555600202557 /* Errors.swift */; };
 		152745162143555600202557 /* StencilTemplate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 152745052143555600202557 /* StencilTemplate.swift */; };
 		152745172143555600202557 /* RenderFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 152745062143555600202557 /* RenderFactory.swift */; };
-		1527451C2143559A00202557 /* Template-Font.stencil in Resources */ = {isa = PBXBuildFile; fileRef = 152745192143559900202557 /* Template-Font.stencil */; };
-		1527451D2143559A00202557 /* Template-Color.stencil in Resources */ = {isa = PBXBuildFile; fileRef = 1527451A2143559900202557 /* Template-Color.stencil */; };
-		1527451E2143559A00202557 /* Template-Style.stencil in Resources */ = {isa = PBXBuildFile; fileRef = 1527451B2143559900202557 /* Template-Style.stencil */; };
 		15D525DC2145C5F70041161C /* FilterBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15D525DB2145C5F70041161C /* FilterBuilder.swift */; };
 		593C29B8451B0FE09B72E3AB /* Pods_StyleSource.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6434DCED3248C7BAA5AA12F3 /* Pods_StyleSource.framework */; };
+		651EBB012147084D00C029D9 /* templates in Resources */ = {isa = PBXBuildFile; fileRef = 651EBB002147084D00C029D9 /* templates */; };
 		C43EDFE02A62B18221F7B210 /* Pods_StyleSourceTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 59C659451B3859ABB9AEBC6E /* Pods_StyleSourceTests.framework */; };
 /* End PBXBuildFile section */
 
@@ -68,13 +66,11 @@
 		152745022143555600202557 /* Errors.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Errors.swift; sourceTree = "<group>"; };
 		152745052143555600202557 /* StencilTemplate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StencilTemplate.swift; sourceTree = "<group>"; };
 		152745062143555600202557 /* RenderFactory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RenderFactory.swift; sourceTree = "<group>"; };
-		152745192143559900202557 /* Template-Font.stencil */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "Template-Font.stencil"; sourceTree = "<group>"; };
-		1527451A2143559900202557 /* Template-Color.stencil */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "Template-Color.stencil"; sourceTree = "<group>"; };
-		1527451B2143559900202557 /* Template-Style.stencil */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "Template-Style.stencil"; sourceTree = "<group>"; };
 		15D525DB2145C5F70041161C /* FilterBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterBuilder.swift; sourceTree = "<group>"; };
 		48E90B42755DCB835E135110 /* Pods-StyleSourceTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-StyleSourceTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-StyleSourceTests/Pods-StyleSourceTests.release.xcconfig"; sourceTree = "<group>"; };
 		59C659451B3859ABB9AEBC6E /* Pods_StyleSourceTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_StyleSourceTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		6434DCED3248C7BAA5AA12F3 /* Pods_StyleSource.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_StyleSource.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		651EBB002147084D00C029D9 /* templates */ = {isa = PBXFileReference; lastKnownFileType = folder; path = templates; sourceTree = SOURCE_ROOT; };
 		8E32B1F786C374430CB615C7 /* Pods-StyleSource.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-StyleSource.debug.xcconfig"; path = "Pods/Target Support Files/Pods-StyleSource/Pods-StyleSource.debug.xcconfig"; sourceTree = "<group>"; };
 		98C77DC81E2050BB9AAADE82 /* Pods-StyleSource.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-StyleSource.release.xcconfig"; path = "Pods/Target Support Files/Pods-StyleSource/Pods-StyleSource.release.xcconfig"; sourceTree = "<group>"; };
 		EF731EB1256A5B4CFB733242 /* Pods-StyleSourceTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-StyleSourceTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-StyleSourceTests/Pods-StyleSourceTests.debug.xcconfig"; sourceTree = "<group>"; };
@@ -142,8 +138,8 @@
 		152744EB2143548800202557 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				651EBB002147084D00C029D9 /* templates */,
 				152744A72143440400202557 /* Info.plist */,
-				152745182143559900202557 /* Templates */,
 			);
 			path = Resources;
 			sourceTree = "<group>";
@@ -243,16 +239,6 @@
 				152745052143555600202557 /* StencilTemplate.swift */,
 			);
 			path = Template;
-			sourceTree = "<group>";
-		};
-		152745182143559900202557 /* Templates */ = {
-			isa = PBXGroup;
-			children = (
-				152745192143559900202557 /* Template-Font.stencil */,
-				1527451A2143559900202557 /* Template-Color.stencil */,
-				1527451B2143559900202557 /* Template-Style.stencil */,
-			);
-			path = Templates;
 			sourceTree = "<group>";
 		};
 		C2AAE536F542AC080362B9BB /* Frameworks */ = {
@@ -364,9 +350,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				1527451E2143559A00202557 /* Template-Style.stencil in Resources */,
-				1527451D2143559A00202557 /* Template-Color.stencil in Resources */,
-				1527451C2143559A00202557 /* Template-Font.stencil in Resources */,
+				651EBB012147084D00C029D9 /* templates in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -672,6 +656,16 @@
 					"$(inherited)",
 					"@executable_path/../Frameworks",
 				);
+				OTHER_LDFLAGS = (
+					"$(inherited)",
+					"-framework",
+					"\"PathKit\"",
+					"-framework",
+					"\"Stencil\"",
+					"-framework",
+					"\"Yams\"",
+					"$(STYLESOURCE_OTHER_LDFLAGS)",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = me.brunofernandes.StyleSource;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
@@ -692,6 +686,16 @@
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/../Frameworks",
+				);
+				OTHER_LDFLAGS = (
+					"$(inherited)",
+					"-framework",
+					"\"PathKit\"",
+					"-framework",
+					"\"Stencil\"",
+					"-framework",
+					"\"Yams\"",
+					"$(STYLESOURCE_OTHER_LDFLAGS)",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = me.brunofernandes.StyleSource;
 				PRODUCT_NAME = "$(TARGET_NAME)";

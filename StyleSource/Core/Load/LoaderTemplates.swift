@@ -25,6 +25,10 @@ public class LoaderTemplates {
 
         let items = try fileManager.contentsOfDirectory(atPath: path.description)
 
+        if items.isEmpty {
+            throw Errors.templateNotFound
+        }
+
         var list: [Template] = []
         for item in items where item.hasSuffix(".stencil") {
             list.append(Template(name: item, path: path))
@@ -39,6 +43,6 @@ public class LoaderTemplates {
             throw Errors.templateNotFound
         }
 
-        return Path(path)
+        return Path(path) + Path("templates")
     }
 }
