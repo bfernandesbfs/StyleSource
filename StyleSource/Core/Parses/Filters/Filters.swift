@@ -64,10 +64,9 @@ public extension Filters {
             return string.lowercased().hasSuffix(suffix)
         }
 
-        public static func removePrefix(_ value: Any?, arguments: [Any?]) throws -> String {
+        public static func reviseName(_ value: Any?) throws -> String {
             let string = try Filters.parseString(from: value)
-            let prefix = try Filters.parseStringArgument(from: arguments)
-            return string.replacingOccurrences(of: prefix, with: String())
+            return string.replacingOccurrences(of: "UI", with: String()) + ConstantKeys.suffix
         }
 
         public static func transform(_ value: Any?) throws -> [String] {

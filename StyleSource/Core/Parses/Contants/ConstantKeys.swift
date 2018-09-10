@@ -10,4 +10,5 @@ public enum ConstantKeys {
     static let font: String = "fonts"
     static let color: String = "colors"
     static let group: String = "groupStyle"
+    static let suffix: String = "Style"
 }

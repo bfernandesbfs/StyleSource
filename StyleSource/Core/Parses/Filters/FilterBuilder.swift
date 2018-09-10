@@ -66,14 +66,14 @@ public class FilterBuilder {
             return string
         }
 
-        return "ThemeColor.\(string)"
+        return "Palette.\(string)"
     }
 
     private func transformToFont(_ values: [Element]) throws -> String {
 
         let font = values.map({ elm -> String in
             if elm.key == "name" {
-                return "ThemeFont.\(elm.value)"
+                return "Font.\(elm.value)"
             }
             else if elm.key == "size" {
                 return ".font(size: \(elm.value))"
