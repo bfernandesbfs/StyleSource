@@ -9,4 +9,5 @@
 import PathKit
 
 public typealias Json = [String: Any]
+public typealias JsonArray = [Json]
 public typealias Config = [Option: Path]

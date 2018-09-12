@@ -42,7 +42,7 @@ public class Command {
             }
         }
         else {
-            logMessage(.info, Errors.argsInvalid.description)
+            logMessage(.error, Errors.argsInvalid.description)
         }
     }
 

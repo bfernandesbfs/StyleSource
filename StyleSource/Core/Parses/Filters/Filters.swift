@@ -17,12 +17,6 @@ public enum Filters {
         case invalidInputType
     }
 
-    /// Parses filter input value for a string value, where accepted objects must conform to
-    /// `CustomStringConvertible`
-    ///
-    /// - Parameters:
-    ///   - value: an input value, may be nil
-    /// - Throws: Filters.Error.invalidInputType
     public static func parseString(from value: Any?) throws -> String {
         if let losslessString = value as? LosslessStringConvertible {
             return String(describing: losslessString)
@@ -33,13 +27,6 @@ public enum Filters {
         throw Error.invalidInputType
     }
 
-    /// Parses filter arguments for a string value, where accepted objects must conform to
-    /// `CustomStringConvertible`
-    ///
-    /// - Parameters:
-    ///   - arguments: an array of argument values, may be empty
-    ///   - index: the index in the arguments array
-    /// - Throws: Filters.Error.invalidInputType
     public static func parseStringArgument(from arguments: [Any?], at index: Int = 0) throws -> String {
         guard index < arguments.count else {
             throw Error.invalidInputType
@@ -77,34 +64,17 @@ public extension Filters {
             return string.lowercased().hasSuffix(suffix)
         }
 
-        public static func transform(_ value: Any?) throws -> [StyleValue]? {
-            guard let dict = value as? [String: Any] else {
-                return nil
-            }
-
-            var values: [StyleValue] = []
-            for (key, value) in dict {
-                values.append(StyleValue(name: key, data: value))
-            }
-            return values
-        }
-
-        public static func inset(_ value: Any?) throws -> String? {
-            guard let dict = value as? [String: Any] else {
-                return nil
-            }
-
-            return "UIEdgeInsets(top: \(dict["top"]!), left: \(dict["left"]!), bottom: \(dict["bottom"]!), right: \(dict["right"]!))"
-        }
-
-        public static func colors(_ value: Any?) throws -> String? {
+        public static func reviseName(_ value: Any?) throws -> String {
             let string = try Filters.parseString(from: value)
+            return string.replacingOccurrences(of: "UI", with: String()) + ConstantKeys.suffix
+        }
 
-            if string.hasPrefix("UI") || string.hasPrefix(".") {
-                return string
+        public static func transform(_ value: Any?) throws -> [String] {
+            guard let element = value as? Element else {
+                throw Error.invalidInputType
             }
 
-            return "ThemeColor.\(string)"
+            return try FilterBuilder(element).build()
         }
     }
 }

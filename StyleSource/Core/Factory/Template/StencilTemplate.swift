@@ -63,8 +63,7 @@ public extension Extension {
     private func registerStringsFilters() {
         registerFilter("hasPrefix", filter: Filters.Strings.hasPrefix)
         registerFilter("hasSuffix", filter: Filters.Strings.hasSuffix)
+        registerFilter("reviseName", filter: Filters.Strings.reviseName)
         registerFilter("transform", filter: Filters.Strings.transform)
-        registerFilter("inset", filter: Filters.Strings.inset)
-        registerFilter("colors", filter: Filters.Strings.colors)
     }
 }
