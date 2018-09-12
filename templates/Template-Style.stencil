@@ -1,0 +1,85 @@
+// Generated using ThemeSource, by Bruno Fernandes
+import UIKit
+
+// swiftlint:disable superfluous_disable_command
+// swiftlint:disable file_length
+
+// swiftlint:disable explicit_type_interface identifier_name line_length nesting type_body_length type_name
+
+public protocol Themeable {}
+
+public protocol Styleable {
+    associatedtype Element
+    func style(to object: Element)
+}
+
+public struct ThemeCore<View> {
+    typealias TypedEntry = (View) -> Void
+    private var configurations: [TypedEntry] = []
+
+    mutating private func appendConfiguration(_ closure: @escaping (View) -> Void) {
+        configurations.append(closure)
+    }
+    public func applied(on target: View) {
+        for config in configurations {
+            config(target)
+        }
+    }
+}
+
+public extension ThemeCore where View: UIView {
+    func with<Value>(_ keyPath: WritableKeyPath<View, Value>, setTo value: Value) -> ThemeCore {
+        var new = self
+        let closure: (View) -> Void = { target in
+            var target = target
+            target[keyPath: keyPath] = value
+        }
+        new.appendConfiguration(closure)
+        return new
+    }
+    func with<Value>(_ keyPath: WritableKeyPath<View, Value?>, setTo value: Value) -> ThemeCore {
+        var new = self
+        let closure: (View) -> Void = { target in
+            var target = target
+            target[keyPath: keyPath] = value
+        }
+        new.appendConfiguration(closure)
+        return new
+    }
+}
+
+extension UIView: Themeable {}
+
+public extension Themeable where Self: UIView {
+    func apply(with config: ThemeCore<Self>) {
+        config.applied(on: self)
+    }
+    func theme<T: Styleable>(with theme: T) where T.Element == Self {
+        theme.style(to: self)
+    }
+}
+
+public enum Theme {
+
+    {% for group in groupStyle %}
+    enum {{ group.name|reviseName }}: Styleable {
+        case {{ group.cases|join:", " }}
+
+        public func style(to object: {{ group.name }}) {
+            var theme = ThemeCore<{{ group.name }}>()
+            switch self {
+            {% for style in group.styles %}
+            case .{{ style.key }}:
+                theme = theme
+                {% for element in style.elements %}
+                    {% for value in element|transform: %}
+                    {{ value }}                     
+                    {% endfor %}  
+                {% endfor %}  
+            {% endfor %}
+            }
+            object.apply(with: theme)
+        }
+    }
+    {% endfor %}
+}

@@ -7,7 +7,7 @@
 //
 
 public enum Errors: Error, CustomStringConvertible {
-    case argsInvalid, pathNotFound, templateNotFound, yamlInvalid
+    case argsInvalid, pathNotFound, templateNotFound(String), yamlInvalid
 
     public var description: String {
         switch self {
@@ -15,8 +15,8 @@ public enum Errors: Error, CustomStringConvertible {
             return "Args invalid"
         case .pathNotFound:
             return "Path not found"
-        case .templateNotFound:
-            return "Template not found"
+        case .templateNotFound(let path):
+            return "Template not found - \(path)"
         case .yamlInvalid:
             return "Yaml invalid"
         }
