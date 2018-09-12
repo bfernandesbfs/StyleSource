@@ -9,36 +9,6 @@
 import PathKit
 import Yams
 
-public struct StyleGroup {
-    var name: String
-    var cases: [String]
-    var styles: [Style]
-}
-
-public struct Style {
-    var key: String
-    var className: String
-    var elements: [Element]
-}
-
-public struct Element {
-    var key: String
-    var value: Any
-    var childs: [Element]
-
-    init(key: String, value: Any) {
-        self.key = key
-        self.value = value
-        self.childs = []
-    }
-
-    init(key: String, childs: [Element]) {
-        self.key = key
-        self.value = NSNull()
-        self.childs = childs
-    }
-}
-
 public func styleParse(path: Path) throws -> [StyleGroup] {
 
     let data: String = try path.read()
