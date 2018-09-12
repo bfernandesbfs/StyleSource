@@ -1,7 +1,7 @@
 # StyleSource
 The Swift code generator for your theme.
 
-## Suport
+## Support
  * Colors
  * Fonts
  * UI
