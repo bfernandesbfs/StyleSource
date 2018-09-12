@@ -19,7 +19,6 @@ public enum Errors: Error, CustomStringConvertible {
             return "Template not found - \(path)"
         case .yamlInvalid:
             return "Yaml invalid"
-        
         }
     }
 }
