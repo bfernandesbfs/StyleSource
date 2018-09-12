@@ -26,7 +26,7 @@ public class LoaderTemplates {
         let items = try fileManager.contentsOfDirectory(atPath: path.description)
 
         if items.isEmpty {
-            throw Errors.templateNotFound
+            throw Errors.templateNotFound("Stencil")
         }
 
         var list: [Template] = []
@@ -39,10 +39,17 @@ public class LoaderTemplates {
 
     private func resolvePath() throws -> Path {
 
-        guard let path = bundle.resourcePath else {
-            throw Errors.templateNotFound
+        guard let applicationPath = bundle.resourcePath else {
+            throw Errors.templateNotFound("Application")
         }
 
-        return Path(path) + Path("templates")
+        if let path = bundle.object(forInfoDictionaryKey: "TemplatePath") as? String, !path.isEmpty {
+            return Path(applicationPath) + Path(path)
+        }
+        else if let path = bundle.path(forResource: "templates", ofType: nil) {
+            return Path(path)
+        }
+
+        throw Errors.templateNotFound("Invalid")
     }
 }

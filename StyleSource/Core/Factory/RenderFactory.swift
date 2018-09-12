@@ -48,6 +48,9 @@ public class RenderFactory {
                 let rendered = try printTemplate(template: template, context: context)
                 try write(content: rendered, output: outputPath)
             }
+            else {
+                logMessage(.warning, "\(template.type.input) not found")
+            }
         }
     }
 
