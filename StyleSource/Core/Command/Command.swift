@@ -21,7 +21,8 @@ internal class Command {
     internal func staticMode() {
 
         do {
-            let entry = try checkEntry(file: Path("/Users/bruno/Desktop/stylesource.yml"))
+            let currentPath = FileManager.default.currentDirectoryPath
+            let entry = try checkEntry(file: Path(currentPath) + Path("stylesource.yml"))
             let render = RenderFactory(template: try loader.fixture(), config: entry)
             try render.build()
 
@@ -35,13 +36,13 @@ internal class Command {
     private func checkEntry(file: Path) throws -> [ConfigEntry] {
 
         if !file.exists {
-            throw Errors.pathNotFound
+            throw Errors.configEntryNotFound
         }
 
         let content: String = try file.read()
 
         guard let anyConfig = try Yams.load(yaml: content) as? Json else {
-            throw Errors.yamlInvalid
+            throw Errors.yamlInvalid(path: "stylesource.yml")
         }
 
         var setup: [ConfigEntry] = []

@@ -17,7 +17,7 @@ private func fontParse(path: Path) throws -> [FontData] {
     let data: String = try path.read()
 
     guard let fonts = try Yams.load(yaml: data) as? [Json] else {
-        throw Errors.yamlInvalid
+        throw Errors.yamlInvalid(path: "\(path) load error")
     }
 
     for font in fonts {

@@ -14,7 +14,7 @@ private func colorParse(path: Path) throws -> [ColorModel] {
     let data: String = try path.read()
 
     guard let colors = try Yams.load(yaml: data) as? Json else {
-        throw Errors.yamlInvalid
+        throw Errors.yamlInvalid(path: "\(path) load error")
     }
 
     let list = colors.map { color -> ColorModel in

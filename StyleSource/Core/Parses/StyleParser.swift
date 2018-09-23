@@ -14,7 +14,7 @@ private func styleParse(path: Path) throws -> [StyleGroup] {
     let data: String = try path.read()
 
     guard let value = try Yams.load(yaml: data) as? Json else {
-        throw Errors.yamlInvalid
+        throw Errors.yamlInvalid(path: "\(path) load error")
     }
 
     var styles: [Style] = []

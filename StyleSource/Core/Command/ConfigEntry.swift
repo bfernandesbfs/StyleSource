@@ -23,7 +23,7 @@ extension ConfigEntry {
         guard let structure = data["structure"] as? String,
             let input = data["input"] as? String,
             let output = data["output"] as? String else {
-            throw Errors.yamlInvalid
+            throw Errors.yamlInvalid(path: "stylesource.yml - Please check documentation")
         }
 
         self.template = template
