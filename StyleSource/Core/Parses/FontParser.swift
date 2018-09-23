@@ -16,9 +16,8 @@ private func fontParse(path: Path) throws -> [FontData] {
 
     let data: String = try path.read()
 
-    guard let value = try Yams.load(yaml: data) as? Json,
-        let fonts = value[ConstantKeys.font] as? [Json] else {
-            throw Errors.yamlInvalid
+    guard let fonts = try Yams.load(yaml: data) as? [Json] else {
+        throw Errors.yamlInvalid
     }
 
     for font in fonts {
@@ -42,7 +41,7 @@ internal class FontParser {
 
         let data = try fontParse(path: input)
 
-        let context = [ConstantKeys.group: FontGroup(structure: structure, fonts: data)]
+        let context: [String: Any] = [Keys.group: data, Keys.structure: structure]
 
         return context
     }

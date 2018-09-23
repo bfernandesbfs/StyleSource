@@ -89,7 +89,7 @@ internal class StyleParser {
 
         let data = try styleParse(path: input)
 
-        let context = [ConstantKeys.group: data]
+        let context: [String: Any] = [Keys.group: data, Keys.structure: structure]
 
         return context
     }

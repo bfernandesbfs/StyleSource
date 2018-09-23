@@ -8,11 +8,6 @@
 
 import Foundation
 
-internal struct FontGroup {
-    var structure: String
-    var fonts: [FontData]
-}
-
 internal struct FontData {
     var key: String
     var font: FontModel

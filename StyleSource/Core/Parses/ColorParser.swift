@@ -31,7 +31,7 @@ internal class ColorParser {
 
         let data = try colorParse(path: input)
 
-        let context = [ConstantKeys.group: ColorGroup(structure: structure, colors: data)]
+        let context: [String: Any] = [Keys.group: data, Keys.structure: structure]
 
         return context
     }

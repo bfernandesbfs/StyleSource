@@ -66,7 +66,7 @@ internal extension Filters {
 
         internal static func reviseName(_ value: Any?) throws -> String {
             let string = try Filters.parseString(from: value)
-            return string.replacingOccurrences(of: "UI", with: String()) + ConstantKeys.suffix
+            return string.replacingOccurrences(of: "UI", with: String()) + Keys.suffix
         }
 
         internal static func transform(_ value: Any?) throws -> [String] {
