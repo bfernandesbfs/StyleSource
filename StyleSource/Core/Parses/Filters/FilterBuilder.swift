@@ -8,7 +8,7 @@
 
 import Foundation
 
-public class FilterBuilder {
+internal class FilterBuilder {
 
     private let element: Element
     private let prefix: String
@@ -18,7 +18,7 @@ public class FilterBuilder {
         self.prefix = ".with(\\.\(prefix)"
     }
 
-    public func build() throws -> [String] {
+    internal func build() throws -> [String] {
 
         if element.childs.isEmpty {
             if element.key.lowercased().hasSuffix("color") {
@@ -26,28 +26,24 @@ public class FilterBuilder {
                 return ["\(prefix)\(element.key), setTo: \(value))"]
             }
             return ["\(prefix)\(element.key), setTo: \(element.value))"]
-        }
-        else {
+        } else {
 
             if element.key.hasSuffix("font") {
 
                 let value = try transformToFont(element.childs)
                 return [value]
 
-            }
-            else if element.key.lowercased().hasSuffix("layer") {
+            } else if element.key.lowercased().hasSuffix("layer") {
 
                 let value = try transformToLayer(element.childs)
                 return value
-            }
-            else if element.key.lowercased().hasSuffix("titlelabel") {
+            } else if element.key.lowercased().hasSuffix("titlelabel") {
 
                 let prefix = element.key + "!."
                 let styles = element.childs.flatMap { elm -> [String] in
                     do {
                         return try FilterBuilder(elm, prefix: prefix).build()
-                    }
-                    catch {
+                    } catch {
                         return []
                     }
                 }
@@ -74,8 +70,7 @@ public class FilterBuilder {
         let font = values.map({ elm -> String in
             if elm.key == "name" {
                 return "Font.\(elm.value)"
-            }
-            else if elm.key == "size" {
+            } else if elm.key == "size" {
                 return ".font(size: \(elm.value))"
             }
             return String()
@@ -92,12 +87,10 @@ public class FilterBuilder {
                 if elm.key == "borderColor" {
                     let value = try transformToColor(elm.value)
                     return "\(prefix)\(element.key).\(elm.key), setTo: \(value).cgColor)"
-                }
-                else {
+                } else {
                     return "\(prefix)\(element.key).\(elm.key), setTo: \(elm.value))"
                 }
-            }
-            catch {
+            } catch {
                 return String()
             }
         }

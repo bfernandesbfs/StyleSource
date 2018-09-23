@@ -1,67 +1,126 @@
-disabled_rules: # rule identifiers to exclude from running
-  - colon
-  - comma
-  - control_statement
-opt_in_rules: # some rules are only opt-in
-  - empty_count
-  - missing_docs
-  - vertical_parameter_alignment_on_call
-  - extension_access_modifier
-  - multiline_parameters
+reporter: "xcode" # reporter type (xcode, json, csv, checkstyle, junit)
 
-  # Find all the available rules by running:
-  # swiftlint rules
 excluded: # paths to ignore during linting. Takes precedence over `included`.
   - Pods
 
-# configurable rules can be customized from this configuration file
-# binary rules can set their severity level
+# If you need help with rules run $ swiftlint 
+
+opt_in_rules:
+  - closure_end_indentation
+  - closure_spacing
+  - comments_space
+  - comments_capitalized_ignore_possible_code
+  - comments_capitalized_find_possible_code
+  - empty_count
+  - explicit_init
+  - explicit_failure_calls
+  - extension_access_modifier
+  - fatal_error_message
+  - first_where
+  - force_cast
+  - force_unwrapping
+  - implicitly_unwrapped_optional
+  - missing_docs
+  - multiline_parameters
+  - multiple_empty_lines
+  - nesting
+  - number_separator
+  - operator_usage_whitespace
+  - overridden_super_call
+  - private_outlet
+  - prohibited_super_call
+  - protocol_property_accessors_order
+  - redundant_nil_coalescing
+  - sorted_imports
+  - syntactic_sugar
+  - vertical_parameter_alignment_on_call
+  - vertical_whitespace
+
+disabled_rules: # rule identifiers to exclude from running
+  # - force_try
+  # - class_delegate_protocol
+  # - function_parameter_count
+  # - function_body_length
+  # - todo
+  # - discarded_notification_center_observer
+  # - conditional_returns_on_newline
 
 cyclomatic_complexity:
-  - 20 # warning
-  - 30 # error
+  ignores_case_statements: true
+  warning: 20
 
-force_cast: warning # implicitly
-force_try:
-  severity: warning # explicitly
-# rules that have both warning and error levels, can set just the warning level
-# implicitly
-line_length: 160
-# they can set both implicitly with an array
-
-function_body_length:
-  - 100 # warning
-  - 200 # error
-
-type_body_length:
-  - 300 # warning
-  - 400 # error
-# or they can set both explicitly
 file_length:
-  warning: 500
-  error: 1200
-# naming rules can set warnings/errors for min_length and max_length
-# additionally they can set excluded names
-type_name:
-  min_length: 4 # only warning
-  max_length: # warning and error
-    warning: 60
-    error: 100
-  excluded:
-    - Log
+  warning: 300
+  error: 400
+
+line_length: 
+  warning: 160 
+  error: 180
+  ignores_comments: true
+  ignores_urls: true
+
+nesting:
+  type_level:
+    warning: 3
+    error: 6
+  statement_level:
+    warning: 5
+    error: 10
+
 identifier_name:
-  min_length: # only min_length
-    error: 3 # only error
+  allowed_symbols: "_"
+  min_length: 2
+  max_length: 
+    warning: 30
+    error: 35
   excluded:
     - id
-    - key
     - url
+    - key
 
-statement_position:
-  statement_mode: uncuddled_else
-reporter: "xcode" # reporter type (xcode, json, csv, checkstyle, junit, html, emoji)
+implicitly_unwrapped_optional:
+  mode: all_except_iboutlets
 
-object_literal:
-  code_literal: false
-  image_literal: false
+large_tuple:
+  warning: 4
+  error: 5
 
+type_body_length:
+  warning: 300
+  error: 350
+
+trailing_comma:
+  mandatory_comma: true
+
+number_separator:
+  minimum_length: 8
+
+private_outlet:
+  allow_private_set: true
+
+colon: 
+  severity: error
+comma: error
+empty_count: error
+legacy_constant: error
+legacy_constructor: error
+opening_brace: error
+trailing_newline: error
+trailing_semicolon: error
+
+custom_rules:
+  comments_space: # From https://github.com/brandenr/swiftlintconfig
+    name: "Space After Comment"
+    regex: '(^ *//\w+)'
+    message: "There should be a space after //"
+    severity: warning
+  explicit_failure_calls:
+      name: “Avoid asserting ‘false’”
+      regex: ‘((assert|precondition)\(false)’
+      message: “Use assertionFailure() or preconditionFailure() instead.”
+      severity: warning
+  multiple_empty_lines:
+     name: "Multiple Empty Lines"
+     regex: '((?:\s*\n){3,})'
+     message: "There are too many line breaks"
+     severity: error

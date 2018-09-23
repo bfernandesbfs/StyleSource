@@ -10,7 +10,7 @@ import Foundation
 import PathKit
 import Yams
 
-public func fontParse(path: Path) throws -> [FontData] {
+private func fontParse(path: Path) throws -> [FontData] {
 
     var list: [FontData] = []
 
@@ -36,15 +36,13 @@ public func fontParse(path: Path) throws -> [FontData] {
     return list
 }
 
-public class FontParser {
+internal class FontParser {
 
     func transform(input: Path) throws -> [String: Any] {
 
         let data = try fontParse(path: input)
 
-        let context = [
-            ConstantKeys.font: data
-        ]
+        let context = [ConstantKeys.font: data]
 
         return context
     }

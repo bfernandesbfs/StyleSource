@@ -7,7 +7,8 @@
 //
 
 public enum Errors: Error, CustomStringConvertible {
-    case argsInvalid, pathNotFound, templateNotFound(String), yamlInvalid
+
+    case argsInvalid, pathNotFound, templateNotFound(path: String), yamlInvalid
 
     public var description: String {
         switch self {

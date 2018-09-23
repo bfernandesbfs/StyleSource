@@ -8,19 +8,19 @@
 
 import Foundation
 
-public struct StyleGroup {
+internal struct StyleGroup {
     var name: String
     var cases: [String]
     var styles: [Style]
 }
 
-public struct Style {
+internal struct Style {
     var key: String
     var className: String
     var elements: [Element]
 }
 
-public struct Element {
+internal struct Element {
     var key: String
     var value: Any
     var childs: [Element]

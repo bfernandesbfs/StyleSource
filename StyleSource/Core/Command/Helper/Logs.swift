@@ -8,11 +8,11 @@
 
 import Foundation
 
-public enum LogLevel {
+internal enum LogLevel {
     case info, warning, error
 }
 
-public enum ANSIColor: UInt8, CustomStringConvertible {
+internal enum ANSIColor: UInt8, CustomStringConvertible {
     case reset = 0
 
     case black = 30
@@ -25,22 +25,21 @@ public enum ANSIColor: UInt8, CustomStringConvertible {
     case white
     case `default`
 
-    public var description: String {
+    internal var description: String {
         return "\u{001B}[\(self.rawValue)m"
     }
 
-    func format(_ string: String) -> String {
+    internal func format(_ string: String) -> String {
         if let termType = getenv("TERM"), String(cString: termType).lowercased() != "dumb" &&
             isatty(fileno(stdout)) != 0 {
             return "\(self)\(string)\(ANSIColor.reset)"
-        }
-        else {
+        } else {
             return string
         }
     }
 }
 
-public func logMessage(_ level: LogLevel, _ string: CustomStringConvertible) {
+internal func logMessage(_ level: LogLevel, _ string: CustomStringConvertible) {
     switch level {
     case .info:
         fputs(ANSIColor.green.format("\(string)\n"), stdout)

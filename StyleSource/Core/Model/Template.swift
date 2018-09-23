@@ -49,7 +49,7 @@ public enum TemplateType: String {
     }
 }
 
-public struct Template {
+internal struct Template {
     var type: TemplateType
     var name: String
     var path: Path

@@ -9,17 +9,17 @@
 import PathKit
 import Stencil
 
-public class RenderFactory {
+internal class RenderFactory {
 
     private let templates: [Template]
     private let config: Config
 
-    public init(templates: [Template], config: Config) {
+    internal init(templates: [Template], config: Config) {
         self.templates = templates
         self.config = config
     }
 
-    public func build() throws {
+    internal func build() throws {
 
         for template in templates {
 
@@ -47,8 +47,7 @@ public class RenderFactory {
 
                 let rendered = try printTemplate(template: template, context: context)
                 try write(content: rendered, output: outputPath)
-            }
-            else {
+            } else {
                 logMessage(.warning, "\(template.type.input) not found")
             }
         }

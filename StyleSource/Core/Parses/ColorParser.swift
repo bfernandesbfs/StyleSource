@@ -9,7 +9,7 @@
 import PathKit
 import Yams
 
-public func colorParse(path: Path) throws -> [ColorModel] {
+private func colorParse(path: Path) throws -> [ColorModel] {
 
     let data: String = try path.read()
 
@@ -26,15 +26,13 @@ public func colorParse(path: Path) throws -> [ColorModel] {
     return list
 }
 
-public class ColorParser {
+internal class ColorParser {
 
     func transform(input: Path) throws -> [String: Any] {
 
         let data = try colorParse(path: input)
 
-        let context = [
-            ConstantKeys.color: data
-        ]
+        let context = [ConstantKeys.color: data]
 
         return context
     }

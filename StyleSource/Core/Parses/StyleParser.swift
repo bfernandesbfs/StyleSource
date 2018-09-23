@@ -9,7 +9,7 @@
 import PathKit
 import Yams
 
-public func styleParse(path: Path) throws -> [StyleGroup] {
+private func styleParse(path: Path) throws -> [StyleGroup] {
 
     let data: String = try path.read()
 
@@ -52,7 +52,7 @@ public func styleParse(path: Path) throws -> [StyleGroup] {
     return groups
 }
 
-public func findElement(data: Json) -> [Element] {
+private func findElement(data: Json) -> [Element] {
 
     var elements: [Element] = []
     for (key, value) in data {
@@ -61,8 +61,7 @@ public func findElement(data: Json) -> [Element] {
             let childs = findElement(data: value)
 
             elements.append(Element(key: key, childs: childs))
-        }
-        else {
+        } else {
             elements.append(Element(key: key, value: value))
         }
     }
@@ -70,14 +69,13 @@ public func findElement(data: Json) -> [Element] {
     return removeLevelElements(data: elements)
 }
 
-public func removeLevelElements(data: [Element]) -> [Element] {
+private func removeLevelElements(data: [Element]) -> [Element] {
 
     var elements: [Element] = []
     for element in data {
         if element.key == "style" {
             elements.append(contentsOf: element.childs)
-        }
-        else {
+        } else {
             elements.append(element)
         }
     }
@@ -85,15 +83,13 @@ public func removeLevelElements(data: [Element]) -> [Element] {
     return elements
 }
 
-public class StyleParser {
+internal class StyleParser {
 
     func transform(input: Path) throws -> [String: Any] {
 
         let data = try styleParse(path: input)
 
-        let context = [
-            ConstantKeys.group: data
-        ]
+        let context = [ConstantKeys.group: data]
 
         return context
     }

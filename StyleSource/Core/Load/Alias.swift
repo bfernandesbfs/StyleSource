@@ -8,6 +8,6 @@
 
 import PathKit
 
-public typealias Json = [String: Any]
-public typealias JsonArray = [Json]
-public typealias Config = [Option: Path]
+internal typealias Json = [String: Any]
+internal typealias JsonArray = [Json]
+internal typealias Config = [Option: Path]

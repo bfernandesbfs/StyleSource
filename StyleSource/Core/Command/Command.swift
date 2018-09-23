@@ -9,15 +9,15 @@
 import Foundation
 import PathKit
 
-public class Command {
+internal class Command {
 
     private let loader: LoaderTemplates
 
-    public init() {
+    internal init() {
         loader = LoaderTemplates(bundle: Bundle.main)
     }
 
-    public func staticMode() {
+    internal func staticMode() {
 
         let info: ProcessInfo = ProcessInfo.processInfo
         if info.arguments.count >= 2 {
@@ -33,15 +33,12 @@ public class Command {
                 let render = RenderFactory(templates: try loader.fixture(), config: config)
                 try render.build()
 
-            }
-            catch let error as Errors {
+            } catch let error as Errors {
                 logMessage(.error, error.description)
-            }
-            catch {
+            } catch {
                 logMessage(.error, "\(error) - \(error.localizedDescription)")
             }
-        }
-        else {
+        } else {
             logMessage(.error, Errors.argsInvalid.description)
         }
     }
@@ -50,7 +47,7 @@ public class Command {
         return Option(value: option)
     }
 
-    private func check(args:[String]) throws -> Config {
+    private func check(args: [String]) throws -> Config {
 
         if args.count >= 4 {
 
@@ -76,8 +73,7 @@ public class Command {
 
             return config
 
-        }
-        else {
+        } else {
             throw Errors.argsInvalid
         }
     }
