@@ -38,11 +38,11 @@ private func fontParse(path: Path) throws -> [FontData] {
 
 internal class FontParser {
 
-    func transform(input: Path) throws -> [String: Any] {
+    func transform(structure: String, input: Path) throws -> [String: Any] {
 
         let data = try fontParse(path: input)
 
-        let context = [ConstantKeys.font: data]
+        let context = [ConstantKeys.group: FontGroup(structure: structure, fonts: data)]
 
         return context
     }

@@ -8,7 +8,12 @@
 
 import Foundation
 
-public struct ColorModel: Codable {
+internal struct ColorGroup {
+    var structure: String
+    var colors: [ColorModel]
+}
+
+internal struct ColorModel: Codable {
     var key: String
     var hex: String
 }

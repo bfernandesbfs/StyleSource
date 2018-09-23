@@ -7,8 +7,8 @@
 //
 
 internal enum ConstantKeys {
+
     static let font: String = "fonts"
-    static let color: String = "colors"
-    static let group: String = "groupStyle"
+    static let group: String = "group"
     static let suffix: String = "Style"
 }

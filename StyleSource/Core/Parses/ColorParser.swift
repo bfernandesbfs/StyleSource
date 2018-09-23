@@ -13,9 +13,8 @@ private func colorParse(path: Path) throws -> [ColorModel] {
 
     let data: String = try path.read()
 
-    guard let value = try Yams.load(yaml: data) as? Json,
-        let colors = value[ConstantKeys.color] as? Json else {
-            throw Errors.yamlInvalid
+    guard let colors = try Yams.load(yaml: data) as? Json else {
+        throw Errors.yamlInvalid
     }
 
     let list = colors.map { color -> ColorModel in
@@ -28,11 +27,11 @@ private func colorParse(path: Path) throws -> [ColorModel] {
 
 internal class ColorParser {
 
-    func transform(input: Path) throws -> [String: Any] {
+    func transform(structure: String, input: Path) throws -> [String: Any] {
 
         let data = try colorParse(path: input)
 
-        let context = [ConstantKeys.color: data]
+        let context = [ConstantKeys.group: ColorGroup(structure: structure, colors: data)]
 
         return context
     }
