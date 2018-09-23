@@ -34,6 +34,8 @@ internal class RenderFactory {
                 context = try StyleParser().transform(structure: entry.structure, input: entry.input)
             }
 
+            FilterHelper.shared.add(type: entry.template, to: entry.structure)
+
             let rendered = try printTemplate(name: entry.template.name, context: context)
             try write(content: rendered, output: entry.output)
         }

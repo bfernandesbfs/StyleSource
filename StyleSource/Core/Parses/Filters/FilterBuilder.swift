@@ -8,6 +8,24 @@
 
 import Foundation
 
+internal class FilterHelper {
+
+    internal static let shared: FilterHelper = FilterHelper()
+
+    private var storage: [TemplateType: String] = [:]
+
+    internal subscript (type: TemplateType) -> String {
+        return storage[type] ?? String()
+    }
+
+    internal func add(type: TemplateType, to name: String) {
+
+        if storage[type] == nil {
+            storage[type] = name
+        }
+    }
+}
+
 internal class FilterBuilder {
 
     private let element: Element
@@ -62,14 +80,17 @@ internal class FilterBuilder {
             return string
         }
 
-        return "Palette.\(string)"
+        let structure = FilterHelper.shared[.color]
+
+        return "\(structure).\(string)"
     }
 
     private func transformToFont(_ values: [Element]) throws -> String {
 
         let font = values.map({ elm -> String in
             if elm.key == "name" {
-                return "Font.\(elm.value)"
+                let structure = FilterHelper.shared[.font]
+                return "\(structure).\(elm.value)"
             } else if elm.key == "size" {
                 return ".font(size: \(elm.value))"
             }
