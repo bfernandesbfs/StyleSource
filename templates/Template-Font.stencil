@@ -44,8 +44,8 @@ public extension UIFont {
     }
 }
 
-public enum Font {
-    {% for data in fonts %}
-    public static let {{ data.key }} = ThemeFontConvertible(name: "{{ data.font.name }}", family: "{{ data.font.family }}", path: "{{ data.font.path }}")
+public enum {{ structure }} {
+    {% for item in group %}
+    public static let {{ item.key }} = ThemeFontConvertible(name: "{{ item.font.name }}", family: "{{ item.font.family }}", path: "{{ item.font.path }}")
     {% endfor %}
 }

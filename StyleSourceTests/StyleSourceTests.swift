@@ -6,8 +6,8 @@
 //  Copyright © 2018 bfs. All rights reserved.
 //
 
-import XCTest
 @testable import StyleSource
+import XCTest
 
 class StyleSourceTests: XCTestCase {
 

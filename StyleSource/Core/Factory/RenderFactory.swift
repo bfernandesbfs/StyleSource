@@ -9,57 +9,44 @@
 import PathKit
 import Stencil
 
-public class RenderFactory {
+internal class RenderFactory {
 
-    private let templates: [Template]
-    private let config: Config
+    private let template: Path
+    private let config: [ConfigEntry]
 
-    public init(templates: [Template], config: Config) {
-        self.templates = templates
+    internal init(template: Path, config: [ConfigEntry]) {
+        self.template = template
         self.config = config
     }
 
-    public func build() throws {
+    internal func build() throws {
 
-        for template in templates {
+        for entry in config {
 
-            guard let input = config[.input], let output = config[.output] else {
-                throw Errors.pathNotFound
+            var context: [String: Any] = [:]
+
+            switch entry.template {
+            case .color:
+                context = try ColorParser().transform(structure: entry.structure, input: entry.input)
+            case .font:
+                context = try FontParser().transform(structure: entry.structure, input: entry.input)
+            case .style:
+                context = try StyleParser().transform(structure: entry.structure, input: entry.input)
             }
 
-            let inputPath = input + Path(template.type.input)
-            let outputPath = output + Path(template.output)
+            FilterHelper.shared.add(type: entry.template, to: entry.structure)
 
-            if inputPath.exists {
-
-                var context: [String: Any] = [:]
-
-                switch template.type {
-                case .font:
-                    context = try FontParser().transform(input: inputPath)
-                case .color:
-                    context = try ColorParser().transform(input: inputPath)
-                case .style:
-                    context = try StyleParser().transform(input: inputPath)
-                default:
-                    logMessage(.warning, "Template type not font")
-                }
-
-                let rendered = try printTemplate(template: template, context: context)
-                try write(content: rendered, output: outputPath)
-            }
-            else {
-                logMessage(.warning, "\(template.type.input) not found")
-            }
+            let rendered = try printTemplate(name: entry.template.name, context: context)
+            try write(content: rendered, output: entry.output)
         }
     }
 
-    private func printTemplate(template: Template, context: [String: Any]) throws -> String {
+    private func printTemplate(name: String, context: [String: Any]) throws -> String {
 
-        let fsLoader = FileSystemLoader(paths: [template.path])
+        let fsLoader = FileSystemLoader(paths: [template])
         let environment = createEnvironment(loader: fsLoader)
 
-        let rendered = try environment.renderTemplate(name: template.name, context: context)
+        let rendered = try environment.renderTemplate(name: name, context: context)
         return rendered
     }
 

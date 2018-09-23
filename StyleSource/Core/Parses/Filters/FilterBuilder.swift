@@ -8,7 +8,25 @@
 
 import Foundation
 
-public class FilterBuilder {
+internal class FilterHelper {
+
+    internal static let shared: FilterHelper = FilterHelper()
+
+    private var storage: [TemplateType: String] = [:]
+
+    internal subscript (type: TemplateType) -> String {
+        return storage[type] ?? String()
+    }
+
+    internal func add(type: TemplateType, to name: String) {
+
+        if storage[type] == nil {
+            storage[type] = name
+        }
+    }
+}
+
+internal class FilterBuilder {
 
     private let element: Element
     private let prefix: String
@@ -18,7 +36,7 @@ public class FilterBuilder {
         self.prefix = ".with(\\.\(prefix)"
     }
 
-    public func build() throws -> [String] {
+    internal func build() throws -> [String] {
 
         if element.childs.isEmpty {
             if element.key.lowercased().hasSuffix("color") {
@@ -26,28 +44,24 @@ public class FilterBuilder {
                 return ["\(prefix)\(element.key), setTo: \(value))"]
             }
             return ["\(prefix)\(element.key), setTo: \(element.value))"]
-        }
-        else {
+        } else {
 
             if element.key.hasSuffix("font") {
 
                 let value = try transformToFont(element.childs)
                 return [value]
 
-            }
-            else if element.key.lowercased().hasSuffix("layer") {
+            } else if element.key.lowercased().hasSuffix("layer") {
 
                 let value = try transformToLayer(element.childs)
                 return value
-            }
-            else if element.key.lowercased().hasSuffix("titlelabel") {
+            } else if element.key.lowercased().hasSuffix("titlelabel") {
 
                 let prefix = element.key + "!."
                 let styles = element.childs.flatMap { elm -> [String] in
                     do {
                         return try FilterBuilder(elm, prefix: prefix).build()
-                    }
-                    catch {
+                    } catch {
                         return []
                     }
                 }
@@ -66,16 +80,18 @@ public class FilterBuilder {
             return string
         }
 
-        return "Palette.\(string)"
+        let structure = FilterHelper.shared[.color]
+
+        return "\(structure).\(string)"
     }
 
     private func transformToFont(_ values: [Element]) throws -> String {
 
         let font = values.map({ elm -> String in
             if elm.key == "name" {
-                return "Font.\(elm.value)"
-            }
-            else if elm.key == "size" {
+                let structure = FilterHelper.shared[.font]
+                return "\(structure).\(elm.value)"
+            } else if elm.key == "size" {
                 return ".font(size: \(elm.value))"
             }
             return String()
@@ -92,12 +108,10 @@ public class FilterBuilder {
                 if elm.key == "borderColor" {
                     let value = try transformToColor(elm.value)
                     return "\(prefix)\(element.key).\(elm.key), setTo: \(value).cgColor)"
-                }
-                else {
+                } else {
                     return "\(prefix)\(element.key).\(elm.key), setTo: \(elm.value))"
                 }
-            }
-            catch {
+            } catch {
                 return String()
             }
         }

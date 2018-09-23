@@ -5,14 +5,21 @@ PODS:
   - Yams (1.0.1)
 
 DEPENDENCIES:
+  - PathKit (= 0.9.1)
   - Stencil (= 0.12.1)
   - Yams (= 1.0.1)
+
+SPEC REPOS:
+  https://github.com/cocoapods/specs.git:
+    - PathKit
+    - Stencil
+    - Yams
 
 SPEC CHECKSUMS:
   PathKit: 7dcba9f0150afb67e0a520c49707a2cbc8e95937
   Stencil: 8a08577b341a059420c444b8aa5733378a6a4384
   Yams: 572f625a8b719b73e0b57fd313c680f3e2161fe9
 
-PODFILE CHECKSUM: 5df414a2ae43512b4ea101f9ba5046dd61c0d0b1
+PODFILE CHECKSUM: 3ab716aff7f15ece8d4b7882add0f71adb96064d
 
-COCOAPODS: 1.4.0
+COCOAPODS: 1.5.3

@@ -6,9 +6,9 @@
 //  Copyright © 2018 Bruno Fernandes. All rights reserved.
 //
 
-public enum ConstantKeys {
-    static let font: String = "fonts"
-    static let color: String = "colors"
-    static let group: String = "groupStyle"
+internal enum Keys {
+
+    static let structure: String = "structure"
+    static let group: String = "group"
     static let suffix: String = "Style"
 }

@@ -7,7 +7,8 @@
 //
 
 public enum Errors: Error, CustomStringConvertible {
-    case argsInvalid, pathNotFound, templateNotFound(String), yamlInvalid
+
+    case argsInvalid, pathNotFound, templateNotFound(path: String), yamlInvalid(path: String), configEntryNotFound
 
     public var description: String {
         switch self {
@@ -17,8 +18,10 @@ public enum Errors: Error, CustomStringConvertible {
             return "Path not found"
         case .templateNotFound(let path):
             return "Template not found - \(path)"
-        case .yamlInvalid:
-            return "Yaml invalid"
+        case .yamlInvalid(let path):
+            return "Yaml invalid to \(path)"
+        case .configEntryNotFound:
+            return "stylesource.yml not found"
         }
     }
 }

@@ -9,13 +9,12 @@
 import PathKit
 import Yams
 
-public func colorParse(path: Path) throws -> [ColorModel] {
+private func colorParse(path: Path) throws -> [ColorModel] {
 
     let data: String = try path.read()
 
-    guard let value = try Yams.load(yaml: data) as? Json,
-        let colors = value[ConstantKeys.color] as? Json else {
-            throw Errors.yamlInvalid
+    guard let colors = try Yams.load(yaml: data) as? Json else {
+        throw Errors.yamlInvalid(path: "\(path) load error")
     }
 
     let list = colors.map { color -> ColorModel in
@@ -26,15 +25,13 @@ public func colorParse(path: Path) throws -> [ColorModel] {
     return list
 }
 
-public class ColorParser {
+internal class ColorParser {
 
-    func transform(input: Path) throws -> [String: Any] {
+    func transform(structure: String, input: Path) throws -> [String: Any] {
 
         let data = try colorParse(path: input)
 
-        let context = [
-            ConstantKeys.color: data
-        ]
+        let context: [String: Any] = [Keys.group: data, Keys.structure: structure]
 
         return context
     }

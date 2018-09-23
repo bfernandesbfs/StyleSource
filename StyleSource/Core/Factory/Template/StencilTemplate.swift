@@ -12,10 +12,10 @@ import Stencil
 public class StencilTemplate: Stencil.Template {
 
     public required init(templateString: String, environment: Environment? = nil, name: String? = nil) {
-        let templateStringWithMarkedNewlines = templateString
+        let templateWithMarkedNewlines = templateString
             .replacingOccurrences(of: "\n\n", with: "\n\u{000b}\n")
             .replacingOccurrences(of: "\n\n", with: "\n\u{000b}\n")
-        super.init(templateString: templateStringWithMarkedNewlines, environment: environment, name: name)
+        super.init(templateString: templateWithMarkedNewlines, environment: environment, name: name)
     }
 
     public override func render(_ dictionary: [String: Any]? = nil) throws -> String {
@@ -26,8 +26,7 @@ public class StencilTemplate: Stencil.Template {
         let extraLinesRE: NSRegularExpression = {
             do {
                 return try NSRegularExpression(pattern: "\\n([ \\t]*\\n)+", options: [])
-            }
-            catch {
+            } catch {
                 fatalError("Regular Expression pattern error: \(error)")
             }
         }()
@@ -44,11 +43,11 @@ public class StencilTemplate: Stencil.Template {
     }
 }
 
-public extension Extension {
+internal extension Extension {
 
     typealias GenericFilter = (Any?, [Any?]) throws -> Any?
 
-    public func registerExtensions() {
+    internal func registerExtensions() {
         registerStringsFilters()
     }
 

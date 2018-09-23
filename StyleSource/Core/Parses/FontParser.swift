@@ -10,15 +10,14 @@ import Foundation
 import PathKit
 import Yams
 
-public func fontParse(path: Path) throws -> [FontData] {
+private func fontParse(path: Path) throws -> [FontData] {
 
     var list: [FontData] = []
 
     let data: String = try path.read()
 
-    guard let value = try Yams.load(yaml: data) as? Json,
-        let fonts = value[ConstantKeys.font] as? [Json] else {
-            throw Errors.yamlInvalid
+    guard let fonts = try Yams.load(yaml: data) as? [Json] else {
+        throw Errors.yamlInvalid(path: "\(path) load error")
     }
 
     for font in fonts {
@@ -36,15 +35,13 @@ public func fontParse(path: Path) throws -> [FontData] {
     return list
 }
 
-public class FontParser {
+internal class FontParser {
 
-    func transform(input: Path) throws -> [String: Any] {
+    func transform(structure: String, input: Path) throws -> [String: Any] {
 
         let data = try fontParse(path: input)
 
-        let context = [
-            ConstantKeys.font: data
-        ]
+        let context: [String: Any] = [Keys.group: data, Keys.structure: structure]
 
         return context
     }

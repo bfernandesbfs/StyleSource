@@ -8,19 +8,32 @@
 
 import Foundation
 
-public struct StyleModel {
+internal struct StyleGroup {
+    var name: String
+    var cases: [String]
+    var styles: [Style]
+}
+
+internal struct Style {
     var key: String
     var className: String
-    var elements: [StyleElement]
-    var cases: [String]
+    var elements: [Element]
 }
 
-public struct StyleElement {
+internal struct Element {
     var key: String
-    var styles: [StyleValue]
-}
+    var value: Any
+    var childs: [Element]
 
-public struct StyleValue {
-    var name: String
-    var data: Any
+    init(key: String, value: Any) {
+        self.key = key
+        self.value = value
+        self.childs = []
+    }
+
+    init(key: String, childs: [Element]) {
+        self.key = key
+        self.value = NSNull()
+        self.childs = childs
+    }
 }

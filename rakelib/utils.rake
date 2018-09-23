@@ -151,7 +151,7 @@ class Utils
 
     # Check if it's at least the right version
     if latest_supported_xcode.nil?
-      raise "\n[!!!] SwiftGen requires Xcode #{version_req}, but we were not able to find it. " \
+      raise "\n[!!!] StyleSource requires Xcode #{version_req}, but we were not able to find it. " \
         "If it's already installed, either `xcode-select -s` to it, or update your Spotlight index " \
         "with 'mdimport /Applications/Xcode*'\n\n"
     end

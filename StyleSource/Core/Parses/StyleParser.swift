@@ -9,42 +9,12 @@
 import PathKit
 import Yams
 
-public struct StyleGroup {
-    var name: String
-    var cases: [String]
-    var styles: [Style]
-}
-
-public struct Style {
-    var key: String
-    var className: String
-    var elements: [Element]
-}
-
-public struct Element {
-    var key: String
-    var value: Any
-    var childs: [Element]
-
-    init(key: String, value: Any) {
-        self.key = key
-        self.value = value
-        self.childs = []
-    }
-
-    init(key: String, childs: [Element]) {
-        self.key = key
-        self.value = NSNull()
-        self.childs = childs
-    }
-}
-
-public func styleParse(path: Path) throws -> [StyleGroup] {
+private func styleParse(path: Path) throws -> [StyleGroup] {
 
     let data: String = try path.read()
 
     guard let value = try Yams.load(yaml: data) as? Json else {
-        throw Errors.yamlInvalid
+        throw Errors.yamlInvalid(path: "\(path) load error")
     }
 
     var styles: [Style] = []
@@ -82,7 +52,7 @@ public func styleParse(path: Path) throws -> [StyleGroup] {
     return groups
 }
 
-public func findElement(data: Json) -> [Element] {
+private func findElement(data: Json) -> [Element] {
 
     var elements: [Element] = []
     for (key, value) in data {
@@ -91,8 +61,7 @@ public func findElement(data: Json) -> [Element] {
             let childs = findElement(data: value)
 
             elements.append(Element(key: key, childs: childs))
-        }
-        else {
+        } else {
             elements.append(Element(key: key, value: value))
         }
     }
@@ -100,14 +69,13 @@ public func findElement(data: Json) -> [Element] {
     return removeLevelElements(data: elements)
 }
 
-public func removeLevelElements(data: [Element]) -> [Element] {
+private func removeLevelElements(data: [Element]) -> [Element] {
 
     var elements: [Element] = []
     for element in data {
         if element.key == "style" {
             elements.append(contentsOf: element.childs)
-        }
-        else {
+        } else {
             elements.append(element)
         }
     }
@@ -115,15 +83,13 @@ public func removeLevelElements(data: [Element]) -> [Element] {
     return elements
 }
 
-public class StyleParser {
+internal class StyleParser {
 
-    func transform(input: Path) throws -> [String: Any] {
+    func transform(structure: String, input: Path) throws -> [String: Any] {
 
         let data = try styleParse(path: input)
 
-        let context = [
-            ConstantKeys.group: data
-        ]
+        let context: [String: Any] = [Keys.group: data, Keys.structure: structure]
 
         return context
     }

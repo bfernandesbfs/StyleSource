@@ -59,16 +59,16 @@ public extension Themeable where Self: UIView {
     }
 }
 
-public enum Theme {
+public enum {{ structure }} {
 
-    {% for group in groupStyle %}
-    enum {{ group.name|reviseName }}: Styleable {
-        case {{ group.cases|join:", " }}
+    {% for item in group %}
+    enum {{ item.name|reviseName }}: Styleable {
+        case {{ item.cases|join:", " }}
 
-        public func style(to object: {{ group.name }}) {
-            var theme = ThemeCore<{{ group.name }}>()
+        public func style(to object: {{ item.name }}) {
+            var theme = ThemeCore<{{ item.name }}>()
             switch self {
-            {% for style in group.styles %}
+            {% for style in item.styles %}
             case .{{ style.key }}:
                 theme = theme
                 {% for element in style.elements %}

@@ -8,12 +8,12 @@
 
 import Foundation
 
-public struct FontData {
+internal struct FontData {
     var key: String
     var font: FontModel
 }
 
-public struct FontModel: Codable {
+internal struct FontModel: Codable {
     var name: String
     var family: String
     var path: String

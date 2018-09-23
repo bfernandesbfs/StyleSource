@@ -9,15 +9,15 @@
 import Foundation
 import Stencil
 
-public enum Filters {
+internal enum Filters {
 
     typealias BooleanWithArguments = (Any?, [Any?]) throws -> Bool
 
-    public enum Error: Swift.Error {
+    internal enum Error: Swift.Error {
         case invalidInputType
     }
 
-    public static func parseString(from value: Any?) throws -> String {
+    internal static func parseString(from value: Any?) throws -> String {
         if let losslessString = value as? LosslessStringConvertible {
             return String(describing: losslessString)
         }
@@ -27,7 +27,7 @@ public enum Filters {
         throw Error.invalidInputType
     }
 
-    public static func parseStringArgument(from arguments: [Any?], at index: Int = 0) throws -> String {
+    internal static func parseStringArgument(from arguments: [Any?], at index: Int = 0) throws -> String {
         guard index < arguments.count else {
             throw Error.invalidInputType
         }
@@ -42,34 +42,34 @@ public enum Filters {
 }
 
 // MARK: - Strings Filters
-public extension Filters {
+internal extension Filters {
 
-    enum Strings {
+    internal enum Strings {
 
-        public static func contains(_ value: Any?, arguments: [Any?]) throws -> Bool {
+        internal static func contains(_ value: Any?, arguments: [Any?]) throws -> Bool {
             let string = try Filters.parseString(from: value)
             let substring = try Filters.parseStringArgument(from: arguments)
             return string.contains(substring)
         }
 
-        public static func hasPrefix(_ value: Any?, arguments: [Any?]) throws -> Bool {
+        internal static func hasPrefix(_ value: Any?, arguments: [Any?]) throws -> Bool {
             let string = try Filters.parseString(from: value)
             let prefix = try Filters.parseStringArgument(from: arguments)
             return string.lowercased().hasPrefix(prefix)
         }
 
-        public static func hasSuffix(_ value: Any?, arguments: [Any?]) throws -> Bool {
+        internal static func hasSuffix(_ value: Any?, arguments: [Any?]) throws -> Bool {
             let string = try Filters.parseString(from: value)
             let suffix = try Filters.parseStringArgument(from: arguments)
             return string.lowercased().hasSuffix(suffix)
         }
 
-        public static func reviseName(_ value: Any?) throws -> String {
+        internal static func reviseName(_ value: Any?) throws -> String {
             let string = try Filters.parseString(from: value)
-            return string.replacingOccurrences(of: "UI", with: String()) + ConstantKeys.suffix
+            return string.replacingOccurrences(of: "UI", with: String()) + Keys.suffix
         }
 
-        public static func transform(_ value: Any?) throws -> [String] {
+        internal static func transform(_ value: Any?) throws -> [String] {
             guard let element = value as? Element else {
                 throw Error.invalidInputType
             }
