@@ -10,4 +10,3 @@ import PathKit
 
 internal typealias Json = [String: Any]
 internal typealias JsonArray = [Json]
-internal typealias Config = [Option: Path]

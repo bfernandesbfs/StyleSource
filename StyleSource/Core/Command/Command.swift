@@ -8,6 +8,7 @@
 
 import Foundation
 import PathKit
+import Yams
 
 internal class Command {
 
@@ -19,62 +20,45 @@ internal class Command {
 
     internal func staticMode() {
 
-        let info: ProcessInfo = ProcessInfo.processInfo
-        if info.arguments.count >= 2 {
-            let args = Array(info.arguments.dropFirst())
+        do {
+            let entry = try checkEntry()
+            let render = RenderFactory(template: try loader.fixture(), config: entry)
+            try render.build()
 
-            do {
-
-                guard args.indices.contains(0) else {
-                    throw Errors.pathNotFound
-                }
-
-                let config = try self.check(args: args)
-                let render = RenderFactory(templates: try loader.fixture(), config: config)
-                try render.build()
-
-            } catch let error as Errors {
-                logMessage(.error, error.description)
-            } catch {
-                logMessage(.error, "\(error) - \(error.localizedDescription)")
-            }
-        } else {
-            logMessage(.error, Errors.argsInvalid.description)
+        } catch let error as Errors {
+            logMessage(.error, error.description)
+        } catch {
+            logMessage(.error, "\(error) - \(error.localizedDescription)")
         }
     }
 
-    private func getOption(_ option: String) -> Option {
-        return Option(value: option)
-    }
+    private func checkEntry() throws -> [ConfigEntry] {
 
-    private func check(args: [String]) throws -> Config {
+        let currentPath = Path(FileManager.default.currentDirectoryPath)
 
-        if args.count >= 4 {
+        let file = currentPath + Path("stylesource.yml")
 
-            var config: Config = [:]
-
-            for index in 0..<2 {
-
-                let indexOfOption = index * 2
-                let indexOfValue = indexOfOption + 1
-                let option = getOption(args[indexOfOption])
-
-                switch option {
-                case .input:
-                    let path = args[indexOfValue]
-                    config[option] = Path(path)
-                case .output:
-                    let path = args[indexOfValue]
-                    config[option] = Path(path)
-                default:
-                    throw Errors.argsInvalid
-                }
-            }
-
-            return config
-
-        } else {
-            throw Errors.argsInvalid
+        if !file.exists {
+            throw Errors.configEntryNotFound
         }
+
+        let content: String = try file.read()
+
+        guard let anyConfig = try Yams.load(yaml: content) as? Json else {
+            throw Errors.yamlInvalid(path: "stylesource.yml")
+        }
+
+        var setup: [ConfigEntry] = []
+
+        for type in TemplateType.allCases {
+
+            if let config = anyConfig[type.rawValue] as? Json {
+
+                let config = try ConfigEntry(template: type, currentPath: currentPath, data: config)
+                setup.append(config)
+            }
+        }
+
+        return setup
     }
 }

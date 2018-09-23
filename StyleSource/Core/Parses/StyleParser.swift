@@ -14,7 +14,7 @@ private func styleParse(path: Path) throws -> [StyleGroup] {
     let data: String = try path.read()
 
     guard let value = try Yams.load(yaml: data) as? Json else {
-        throw Errors.yamlInvalid
+        throw Errors.yamlInvalid(path: "\(path) load error")
     }
 
     var styles: [Style] = []
@@ -85,11 +85,11 @@ private func removeLevelElements(data: [Element]) -> [Element] {
 
 internal class StyleParser {
 
-    func transform(input: Path) throws -> [String: Any] {
+    func transform(structure: String, input: Path) throws -> [String: Any] {
 
         let data = try styleParse(path: input)
 
-        let context = [ConstantKeys.group: data]
+        let context: [String: Any] = [Keys.group: data, Keys.structure: structure]
 
         return context
     }

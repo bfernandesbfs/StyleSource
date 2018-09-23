@@ -18,14 +18,14 @@
 		1527450D2143555600202557 /* LoaderTemplates.swift in Sources */ = {isa = PBXBuildFile; fileRef = 152744F72143555600202557 /* LoaderTemplates.swift */; };
 		1527450E2143555600202557 /* StyleModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 152744F92143555600202557 /* StyleModel.swift */; };
 		1527450F2143555600202557 /* ColorModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 152744FA2143555600202557 /* ColorModel.swift */; };
-		152745102143555600202557 /* Template.swift in Sources */ = {isa = PBXBuildFile; fileRef = 152744FB2143555600202557 /* Template.swift */; };
+		152745102143555600202557 /* TemplateType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 152744FB2143555600202557 /* TemplateType.swift */; };
 		152745112143555600202557 /* FontModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 152744FC2143555600202557 /* FontModel.swift */; };
-		152745122143555600202557 /* Option.swift in Sources */ = {isa = PBXBuildFile; fileRef = 152744FE2143555600202557 /* Option.swift */; };
 		152745132143555600202557 /* Command.swift in Sources */ = {isa = PBXBuildFile; fileRef = 152744FF2143555600202557 /* Command.swift */; };
 		152745142143555600202557 /* Logs.swift in Sources */ = {isa = PBXBuildFile; fileRef = 152745012143555600202557 /* Logs.swift */; };
 		152745152143555600202557 /* Errors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 152745022143555600202557 /* Errors.swift */; };
 		152745162143555600202557 /* StencilTemplate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 152745052143555600202557 /* StencilTemplate.swift */; };
 		152745172143555600202557 /* RenderFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 152745062143555600202557 /* RenderFactory.swift */; };
+		15BA84182157EE92000ECF77 /* ConfigEntry.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15BA84172157EE92000ECF77 /* ConfigEntry.swift */; };
 		15D525DC2145C5F70041161C /* FilterBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15D525DB2145C5F70041161C /* FilterBuilder.swift */; };
 		63CCF5794EF77DCA5D642E71 /* Pods_StyleSourceTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B3FBCE2079694EC8370D2A9D /* Pods_StyleSourceTests.framework */; };
 		651EBB012147084D00C029D9 /* templates in Resources */ = {isa = PBXBuildFile; fileRef = 651EBB002147084D00C029D9 /* templates */; };
@@ -58,14 +58,14 @@
 		152744F72143555600202557 /* LoaderTemplates.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoaderTemplates.swift; sourceTree = "<group>"; };
 		152744F92143555600202557 /* StyleModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StyleModel.swift; sourceTree = "<group>"; };
 		152744FA2143555600202557 /* ColorModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ColorModel.swift; sourceTree = "<group>"; };
-		152744FB2143555600202557 /* Template.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Template.swift; sourceTree = "<group>"; };
+		152744FB2143555600202557 /* TemplateType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TemplateType.swift; sourceTree = "<group>"; };
 		152744FC2143555600202557 /* FontModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FontModel.swift; sourceTree = "<group>"; };
-		152744FE2143555600202557 /* Option.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Option.swift; sourceTree = "<group>"; };
 		152744FF2143555600202557 /* Command.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Command.swift; sourceTree = "<group>"; };
 		152745012143555600202557 /* Logs.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Logs.swift; sourceTree = "<group>"; };
 		152745022143555600202557 /* Errors.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Errors.swift; sourceTree = "<group>"; };
 		152745052143555600202557 /* StencilTemplate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StencilTemplate.swift; sourceTree = "<group>"; };
 		152745062143555600202557 /* RenderFactory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RenderFactory.swift; sourceTree = "<group>"; };
+		15BA84172157EE92000ECF77 /* ConfigEntry.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfigEntry.swift; sourceTree = "<group>"; };
 		15D525DB2145C5F70041161C /* FilterBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterBuilder.swift; sourceTree = "<group>"; };
 		4C6D710EBDABCAE9E699962A /* Pods-StyleSource.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-StyleSource.release.xcconfig"; path = "Pods/Target Support Files/Pods-StyleSource/Pods-StyleSource.release.xcconfig"; sourceTree = "<group>"; };
 		52CB06D8B2ABB48363ED5DF4 /* Pods_StyleSource.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_StyleSource.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -208,7 +208,6 @@
 			children = (
 				152744F92143555600202557 /* StyleModel.swift */,
 				152744FA2143555600202557 /* ColorModel.swift */,
-				152744FB2143555600202557 /* Template.swift */,
 				152744FC2143555600202557 /* FontModel.swift */,
 			);
 			path = Model;
@@ -217,7 +216,8 @@
 		152744FD2143555600202557 /* Command */ = {
 			isa = PBXGroup;
 			children = (
-				152744FE2143555600202557 /* Option.swift */,
+				152744FB2143555600202557 /* TemplateType.swift */,
+				15BA84172157EE92000ECF77 /* ConfigEntry.swift */,
 				152744FF2143555600202557 /* Command.swift */,
 				152745002143555600202557 /* Helper */,
 			);
@@ -464,12 +464,12 @@
 				152745172143555600202557 /* RenderFactory.swift in Sources */,
 				1527450A2143555600202557 /* ColorParser.swift in Sources */,
 				1527450E2143555600202557 /* StyleModel.swift in Sources */,
-				152745122143555600202557 /* Option.swift in Sources */,
 				1527450B2143555600202557 /* FontParser.swift in Sources */,
-				152745102143555600202557 /* Template.swift in Sources */,
+				152745102143555600202557 /* TemplateType.swift in Sources */,
 				1527450D2143555600202557 /* LoaderTemplates.swift in Sources */,
 				152745132143555600202557 /* Command.swift in Sources */,
 				1527450C2143555600202557 /* Alias.swift in Sources */,
+				15BA84182157EE92000ECF77 /* ConfigEntry.swift in Sources */,
 				15D525DC2145C5F70041161C /* FilterBuilder.swift in Sources */,
 				1527450F2143555600202557 /* ColorModel.swift in Sources */,
 			);

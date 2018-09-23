@@ -19,22 +19,15 @@ internal class LoaderTemplates {
         self.fileManager = FileManager.default
     }
 
-    internal func fixture() throws -> [Template] {
+    internal func fixture() throws -> Path {
 
         let path = try resolvePath()
 
-        let items = try fileManager.contentsOfDirectory(atPath: path.description)
-
-        if items.isEmpty {
+        if try fileManager.contentsOfDirectory(atPath: path.description).isEmpty {
             throw Errors.templateNotFound(path: "Stencil")
         }
 
-        var list: [Template] = []
-        for item in items where item.hasSuffix(".stencil") {
-            list.append(Template(name: item, path: path))
-        }
-
-        return list
+        return path
     }
 
     private func resolvePath() throws -> Path {
