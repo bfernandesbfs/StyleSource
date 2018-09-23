@@ -21,8 +21,7 @@ internal class Command {
     internal func staticMode() {
 
         do {
-            let currentPath = FileManager.default.currentDirectoryPath
-            let entry = try checkEntry(file: Path(currentPath) + Path("stylesource.yml"))
+            let entry = try checkEntry()
             let render = RenderFactory(template: try loader.fixture(), config: entry)
             try render.build()
 
@@ -33,7 +32,11 @@ internal class Command {
         }
     }
 
-    private func checkEntry(file: Path) throws -> [ConfigEntry] {
+    private func checkEntry() throws -> [ConfigEntry] {
+
+        let currentPath = Path(FileManager.default.currentDirectoryPath)
+
+        let file = currentPath + Path("stylesource.yml")
 
         if !file.exists {
             throw Errors.configEntryNotFound
@@ -51,7 +54,7 @@ internal class Command {
 
             if let config = anyConfig[type.rawValue] as? Json {
 
-                let config = try ConfigEntry(template: type, data: config)
+                let config = try ConfigEntry(template: type, currentPath: currentPath, data: config)
                 setup.append(config)
             }
         }

@@ -18,7 +18,7 @@ internal struct ConfigEntry {
 
 extension ConfigEntry {
 
-    internal init(template: TemplateType, data: Json) throws {
+    internal init(template: TemplateType, currentPath: Path, data: Json) throws {
 
         guard let structure = data["structure"] as? String,
             let input = data["input"] as? String,
@@ -28,8 +28,7 @@ extension ConfigEntry {
 
         self.template = template
         self.structure = structure
-        self.input = Path(input)
-        self.output = Path(output)
-
+        self.input = currentPath + Path(input)
+        self.output = currentPath + Path(output)
     }
 }
