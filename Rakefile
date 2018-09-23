@@ -8,7 +8,7 @@ require 'shellwords'
 WORKSPACE = 'StyleSource'.freeze
 SCHEME_NAME = 'StyleSource'.freeze
 RELEASE_CONFIGURATION = 'Release'.freeze
-MIN_XCODE_VERSION = 9.2
+MIN_XCODE_VERSION = 10.0
 
 BUILD_DIR = File.absolute_path('./build')
 BIN_NAME = 'StyleSource'.freeze
