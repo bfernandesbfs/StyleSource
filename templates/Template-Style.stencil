@@ -62,7 +62,7 @@ public extension Themeable where Self: UIView {
 public enum {{ structure }} {
 
     {% for item in group %}
-    enum {{ item.name|reviseName }}: Styleable {
+    public enum {{ item.name|reviseName }}: Styleable {
         case {{ item.cases|join:", " }}
 
         public func style(to object: {{ item.name }}) {
