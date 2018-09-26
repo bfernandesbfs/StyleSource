@@ -65,7 +65,6 @@ internal class FilterBuilder {
                         return []
                     }
                 }
-
                 return styles
             }
         }
@@ -87,32 +86,30 @@ internal class FilterBuilder {
 
     private func transformToFont(_ values: [Element]) throws -> String {
 
-        let font = values.map({ elm -> String in
-            if elm.key == "name" {
+        var font: [String] = []
+
+        for item in values {
+            if item.key == "name" {
                 let structure = FilterHelper.shared[.font]
-                return "\(structure).\(elm.value)"
-            } else if elm.key == "size" {
-                return ".font(size: \(elm.value))"
+                font.insert("\(structure).\(item.value)", at: 0)
+            } else if item.key == "size" {
+                font.append(".font(size: \(item.value))")
             }
-            return String()
-        })
+        }
 
         return "\(prefix)\(element.key), setTo: \(font.joined()))"
     }
 
     private func transformToLayer(_ values: [Element]) throws -> [String] {
 
-        let layers = values.map { elm -> String in
+        var layers: [String] = []
 
-            do {
-                if elm.key == "borderColor" {
-                    let value = try transformToColor(elm.value)
-                    return "\(prefix)\(element.key).\(elm.key), setTo: \(value).cgColor)"
-                } else {
-                    return "\(prefix)\(element.key).\(elm.key), setTo: \(elm.value))"
-                }
-            } catch {
-                return String()
+        for item in values {
+            if item.key == "borderColor" {
+                let value = try transformToColor(item.value)
+                layers.append("\(prefix)\(element.key).\(item.key), setTo: \(value).cgColor)")
+            } else {
+                layers.append("\(prefix)\(element.key).\(item.key), setTo: \(item.value))")
             }
         }
 
