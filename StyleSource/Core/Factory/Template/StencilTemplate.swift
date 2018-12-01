@@ -45,23 +45,11 @@ public class StencilTemplate: Stencil.Template {
 
 internal extension Extension {
 
-    typealias GenericFilter = (Any?, [Any?]) throws -> Any?
-
     internal func registerExtensions() {
         registerStringsFilters()
     }
 
-    private func registerFilter(_ name: String, filter: @escaping Filters.BooleanWithArguments) {
-
-        registerFilter(name, filter: filter as GenericFilter)
-        registerFilter("!\(name)", filter: { value, arguments in
-            try !filter(value, arguments)
-            } as GenericFilter)
-    }
-
     private func registerStringsFilters() {
-        registerFilter("hasPrefix", filter: Filters.Strings.hasPrefix)
-        registerFilter("hasSuffix", filter: Filters.Strings.hasSuffix)
         registerFilter("reviseName", filter: Filters.Strings.reviseName)
         registerFilter("transform", filter: Filters.Strings.transform)
     }

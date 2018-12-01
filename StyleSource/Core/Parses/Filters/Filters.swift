@@ -11,8 +11,6 @@ import Stencil
 
 internal enum Filters {
 
-    typealias BooleanWithArguments = (Any?, [Any?]) throws -> Bool
-
     internal enum Error: Swift.Error {
         case invalidInputType
     }
@@ -26,43 +24,12 @@ internal enum Filters {
         }
         throw Error.invalidInputType
     }
-
-    internal static func parseStringArgument(from arguments: [Any?], at index: Int = 0) throws -> String {
-        guard index < arguments.count else {
-            throw Error.invalidInputType
-        }
-        if let losslessString = arguments[index] as? LosslessStringConvertible {
-            return String(describing: losslessString)
-        }
-        if let string = arguments[index] as? String {
-            return string
-        }
-        throw Error.invalidInputType
-    }
 }
 
 // MARK: - Strings Filters
 internal extension Filters {
 
     internal enum Strings {
-
-        internal static func contains(_ value: Any?, arguments: [Any?]) throws -> Bool {
-            let string = try Filters.parseString(from: value)
-            let substring = try Filters.parseStringArgument(from: arguments)
-            return string.contains(substring)
-        }
-
-        internal static func hasPrefix(_ value: Any?, arguments: [Any?]) throws -> Bool {
-            let string = try Filters.parseString(from: value)
-            let prefix = try Filters.parseStringArgument(from: arguments)
-            return string.lowercased().hasPrefix(prefix)
-        }
-
-        internal static func hasSuffix(_ value: Any?, arguments: [Any?]) throws -> Bool {
-            let string = try Filters.parseString(from: value)
-            let suffix = try Filters.parseStringArgument(from: arguments)
-            return string.lowercased().hasSuffix(suffix)
-        }
 
         internal static func reviseName(_ value: Any?) throws -> String {
             let string = try Filters.parseString(from: value)
