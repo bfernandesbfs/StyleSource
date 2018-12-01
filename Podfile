@@ -5,7 +5,7 @@ use_frameworks!
 target 'StyleSource' do
 
   pod 'PathKit', '0.9.1'
-  pod 'Stencil', '0.12.1'
+  pod 'Stencil', '0.13.1'
   pod 'Yams', '1.0.1'
 
   target 'StyleSourceTests' do
