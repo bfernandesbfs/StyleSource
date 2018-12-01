@@ -18,17 +18,18 @@ internal struct ConfigEntry {
 
 extension ConfigEntry {
 
-    internal init(template: TemplateType, currentPath: Path, data: Json) throws {
+    internal init(template: TemplateType, currentPath: Path, data: Json) {
 
-        guard let structure = data["structure"] as? String,
-            let input = data["input"] as? String,
-            let output = data["output"] as? String else {
-            throw Errors.yamlInvalid(path: "stylesource.yml - Please check documentation")
+        guard let input = data["input"] as? String,
+            let output = data["output"] as? Json,
+            let structure = output["structure"] as? String,
+            let path = output["path"] as? String else {
+            fatalError("stylesource.yml - Please check documentation")
         }
 
         self.template = template
         self.structure = structure
         self.input = currentPath + Path(input)
-        self.output = currentPath + Path(output)
+        self.output = currentPath + Path(path)
     }
 }

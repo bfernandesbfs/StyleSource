@@ -52,10 +52,11 @@ internal class Command {
 
         for type in TemplateType.allCases {
 
-            if let config = anyConfig[type.rawValue] as? Json {
+            if let items = anyConfig[type.rawValue] as? [Json] {
 
-                let config = try ConfigEntry(template: type, currentPath: currentPath, data: config)
-                setup.append(config)
+                let config = items.map { ConfigEntry(template: type, currentPath: currentPath, data: $0) }
+
+                setup.append(contentsOf: config)
             }
         }
 
