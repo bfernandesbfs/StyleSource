@@ -105,7 +105,7 @@ internal class FilterBuilder {
         var layers: [String] = []
 
         for item in values {
-            if item.key == "borderColor" {
+            if item.key.hasSuffix("Color") {
                 let value = try transformToColor(item.value)
                 layers.append("\(prefix)\(element.key).\(item.key), setTo: \(value).cgColor)")
             } else {
