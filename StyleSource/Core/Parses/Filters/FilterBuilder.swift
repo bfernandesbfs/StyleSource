@@ -79,9 +79,7 @@ internal class FilterBuilder {
             return string
         }
 
-        let structure = FilterHelper.shared[.color]
-
-        return "\(structure).\(string)"
+        return "\(string)"
     }
 
     private func transformToFont(_ values: [Element]) throws -> String {
@@ -105,7 +103,7 @@ internal class FilterBuilder {
         var layers: [String] = []
 
         for item in values {
-            if item.key.hasSuffix("Color") {
+            if item.key.lowercased().hasSuffix("Color") {
                 let value = try transformToColor(item.value)
                 layers.append("\(prefix)\(element.key).\(item.key), setTo: \(value).cgColor)")
             } else {
