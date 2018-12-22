@@ -9,6 +9,7 @@
 internal enum Keys {
 
     static let structure: String = "structure"
+    static let core: String = "core"
     static let group: String = "group"
     static let suffix: String = "Style"
 }

@@ -8,15 +8,13 @@
 
 import PathKit
 
-internal struct ConfigEntry {
+internal class ConfigEntry {
 
     let template: TemplateType
     let structure: String
     let input: Path
     let output: Path
-}
-
-extension ConfigEntry {
+    let required: Bool
 
     internal init(template: TemplateType, currentPath: Path, data: Json) {
 
@@ -27,6 +25,7 @@ extension ConfigEntry {
             fatalError("stylesource.yml - Please check documentation")
         }
 
+        self.required = output["required"] as? Bool ?? true
         self.template = template
         self.structure = structure
         self.input = currentPath + Path(input)

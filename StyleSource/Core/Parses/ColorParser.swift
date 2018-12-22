@@ -27,11 +27,11 @@ private func colorParse(path: Path) throws -> [ColorModel] {
 
 internal class ColorParser {
 
-    func transform(structure: String, input: Path) throws -> [String: Any] {
+    func transform(structure: String, required: Bool, input: Path) throws -> [String: Any] {
 
         let data = try colorParse(path: input)
 
-        let context: [String: Any] = [Keys.group: data, Keys.structure: structure]
+        let context: [String: Any] = [Keys.group: data, Keys.structure: structure, Keys.core: required]
 
         return context
     }

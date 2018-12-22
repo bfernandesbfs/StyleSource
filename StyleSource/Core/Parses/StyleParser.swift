@@ -85,11 +85,11 @@ private func removeLevelElements(data: [Element]) -> [Element] {
 
 internal class StyleParser {
 
-    func transform(structure: String, input: Path) throws -> [String: Any] {
+    func transform(structure: String, required: Bool, input: Path) throws -> [String: Any] {
 
         let data = try styleParse(path: input)
 
-        let context: [String: Any] = [Keys.group: data, Keys.structure: structure]
+        let context: [String: Any] = [Keys.group: data, Keys.structure: structure, Keys.core: required]
 
         return context
     }

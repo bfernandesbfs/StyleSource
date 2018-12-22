@@ -1,4 +1,4 @@
-// Generated using ThemeSource, by Bruno Fernandes
+// Generated using StyleSource, by Bruno Fernandes
 
 import UIKit
 
@@ -6,6 +6,7 @@ import UIKit
 // swiftlint:disable file_length
 
 // swiftlint:disable explicit_type_interface identifier_name line_length nesting type_body_length type_name
+{% if core %}
 
 private final class BundleToken {}
 
@@ -52,6 +53,7 @@ public extension UIFont {
         self.init(name: font.name, size: size)
     }
 }
+{% endif %}
 
 public enum {{ structure }} {
     {% for item in group %}

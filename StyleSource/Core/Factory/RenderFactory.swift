@@ -27,11 +27,11 @@ internal class RenderFactory {
 
             switch entry.template {
             case .color:
-                context = try ColorParser().transform(structure: entry.structure, input: entry.input)
+                context = try ColorParser().transform(structure: entry.structure, required: entry.required, input: entry.input)
             case .font:
-                context = try FontParser().transform(structure: entry.structure, input: entry.input)
+                context = try FontParser().transform(structure: entry.structure, required: entry.required, input: entry.input)
             case .style:
-                context = try StyleParser().transform(structure: entry.structure, input: entry.input)
+                context = try StyleParser().transform(structure: entry.structure, required: entry.required, input: entry.input)
             }
 
             FilterHelper.shared.add(type: entry.template, to: entry.structure)
