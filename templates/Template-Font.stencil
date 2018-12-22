@@ -15,11 +15,19 @@ public struct ThemeFontConvertible {
     let path: String
 
     public func font(size: CGFloat) -> UIFont {
-        let metrics = UIFontMetrics.default
-        guard let font = UIFont(font: self, size: size) else {
-            return metrics.scaledFont(for: UIFont.systemFont(ofSize: size))
+        if #available(iOS 11.0, *) {
+            let metrics = UIFontMetrics.default
+            guard let font = UIFont(font: self, size: size) else {
+                return metrics.scaledFont(for: UIFont.systemFont(ofSize: size))
+            }
+            return metrics.scaledFont(for: font)
+        } else {
+            let scaler = UIFont.preferredFont(forTextStyle: .body).pointSize / 17.0
+            guard let font = UIFont(font: self, size: size) else {
+                return UIFont.systemFont(ofSize: scaler * size)
+            }
+            return font.withSize(scaler * font.pointSize)
         }
-        return metrics.scaledFont(for: font)
     }
 
     public func register() {
