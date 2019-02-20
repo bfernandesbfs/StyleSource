@@ -37,11 +37,16 @@ private func fontParse(path: Path) throws -> [FontData] {
 
 internal class FontParser {
 
-    func transform(structure: String, required: Bool, input: Path) throws -> [String: Any] {
+    func transform(hash: String, structure: String, required: Bool, input: Path) throws -> [String: Any] {
 
         let data = try fontParse(path: input)
 
-        let context: [String: Any] = [Keys.group: data, Keys.structure: structure, Keys.core: required]
+        let context: [String: Any] = [
+            Keys.hash: hash,
+            Keys.group: data,
+            Keys.structure: structure,
+            Keys.core: required
+        ]
 
         return context
     }

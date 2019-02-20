@@ -14,9 +14,10 @@ internal class ConfigEntry {
     let structure: String
     let input: Path
     let output: Path
+    let hash: String
     let required: Bool
 
-    internal init(template: TemplateType, currentPath: Path, data: Json) {
+    internal init(template: TemplateType, currentPath: Path, hash: String, data: Json) {
 
         guard let input = data["input"] as? String,
             let output = data["output"] as? Json,
@@ -30,5 +31,6 @@ internal class ConfigEntry {
         self.structure = structure
         self.input = currentPath + Path(input)
         self.output = currentPath + Path(path)
+        self.hash = hash
     }
 }
