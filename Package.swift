@@ -27,9 +27,6 @@ let package = Package(
             name: "StyleSource",
             dependencies: ["Core"]),
         .testTarget(
-            name: "StyleSourceTests",
-            dependencies: ["StyleSource"]),
-        .testTarget(
             name: "CoreTests",
             dependencies: ["Core", "PathKit", "Stencil", "Yams"])
     ]
