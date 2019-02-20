@@ -7,10 +7,11 @@ require 'shellwords'
 
 WORKSPACE = 'StyleSource'.freeze
 SCHEME_NAME = 'StyleSource'.freeze
-RELEASE_CONFIGURATION = 'Release'.freeze
+RELEASE_CONFIGURATION = 'release'.freeze
 MIN_XCODE_VERSION = 10.0
 
-BUILD_DIR = File.absolute_path('./build')
+BUILD_DIR = File.absolute_path('./.build')
+TARGET_DIR = File.absolute_path('./build')
 BIN_NAME = 'StyleSource'.freeze
 TEMPLATES_SRC_DIR = 'templates'.freeze
 
@@ -22,7 +23,7 @@ def path(str)
 end
 
 def defaults(args)
-  bindir = path(args.bindir) || (Pathname.new(BUILD_DIR) + 'StyleSource/bin')
+  bindir = path(args.bindir) || (Pathname.new(TARGET_DIR) + 'StyleSource/bin')
   fmkdir = path(args.fmkdir) || (bindir + '../lib')
   tpldir = path(args.tpldir) || (bindir + '../templates')
   [bindir, fmkdir, tpldir].map(&:expand_path)
@@ -38,11 +39,8 @@ namespace :cli do
     tpl_rel_path = tpldir.relative_path_from(bindir)
 
     Utils.print_header 'Building Binary'
-    plist_file = (Pathname.new(BUILD_DIR) + "Build/Products/#{RELEASE_CONFIGURATION}/StyleSource.app/Contents/Info.plist").to_s
     Utils.run(
-      %(xcodebuild -workspace "#{WORKSPACE}.xcworkspace" -scheme "#{SCHEME_NAME}" -configuration "#{RELEASE_CONFIGURATION}") +
-      %( -derivedDataPath "#{BUILD_DIR}" TEMPLATE_PATH="#{tpl_rel_path}") +
-      %( STYLESOURCE_OTHER_LDFLAGS="-sectcreate __TEXT __info_plist #{plist_file.shellescape}"),
+      %(swift build -c=release),
       task, xcrun: true, formatter: :xcpretty
     )
   end
@@ -51,27 +49,13 @@ namespace :cli do
        '(defaults $bindir=./build/StyleSource/bin/, $fmkdir=$bindir/../lib, $tpldir=$bindir/../templates'
   task :install, %i[bindir fmkdir tpldir] => :build do |task, args|
     (bindir, fmkdir, tpldir) = defaults(args)
-    generated_bundle_path = "#{BUILD_DIR}/Build/Products/#{RELEASE_CONFIGURATION}/StyleSource.app/Contents"
+    generated_bundle_path = "#{BUILD_DIR}/#{RELEASE_CONFIGURATION}"
 
     Utils.print_header "Installing binary in #{bindir}"
     Utils.run([
                 %(mkdir -p "#{bindir}"),
-                %(cp -f "#{generated_bundle_path}/MacOS/StyleSource" "#{bindir}/#{BIN_NAME}")
+                %(cp -f "#{generated_bundle_path}/StyleSource" "#{bindir}/#{BIN_NAME}")
               ], task, 'copy_binary')
-
-    Utils.print_header "Installing frameworks in #{fmkdir}"
-    Utils.run([
-                %(if [ -d "#{fmkdir}" ]; then rm -rf "#{fmkdir}"; fi),
-                %(mkdir -p "#{fmkdir}"),
-                %(cp -fR "#{generated_bundle_path}/Frameworks/" "#{fmkdir}")
-              ], task, 'copy_frameworks')
-
-    Utils.print_header "Fixing binary's @rpath"
-    Utils.run([
-                %(install_name_tool -delete_rpath "@executable_path/../Frameworks" "#{bindir}/#{BIN_NAME}"),
-                %(install_name_tool -add_rpath "@executable_path/#{fmkdir.relative_path_from(bindir)}" "#{bindir}/#{BIN_NAME}")
-              ], task, 'fix_rpath', xcrun: true)
-
     Utils.print_header "Installing templates in #{tpldir}"
     Utils.run([
                 %(mkdir -p "#{tpldir}"),
