@@ -8,6 +8,7 @@
 
 internal enum Keys {
 
+    static let hash: String = "hash"
     static let structure: String = "structure"
     static let core: String = "core"
     static let group: String = "group"
