@@ -4,6 +4,7 @@ xcuserdata
 *.xcbkptlist
 *.xcworkspace
 *.bak
+*.xcodeproj
 
 ## Build generated
 build/

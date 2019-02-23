@@ -10,15 +10,15 @@ import Foundation
 import PathKit
 import Yams
 
-internal class Command {
+public class Command {
 
     private let loader: LoaderTemplates
 
-    internal init() {
+    public init() {
         loader = LoaderTemplates(bundle: Bundle.main)
     }
 
-    internal func staticMode() {
+    public func staticMode() {
 
         do {
             let entry = try checkEntry()
@@ -32,7 +32,7 @@ internal class Command {
         }
     }
 
-    private func checkEntry() throws -> [ConfigEntry] {
+    internal func checkEntry() throws -> [ConfigEntry] {
 
         let currentPath = Path(FileManager.default.currentDirectoryPath)
 
