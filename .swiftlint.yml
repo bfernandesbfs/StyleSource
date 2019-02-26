@@ -1,7 +1,8 @@
 reporter: "xcode" # reporter type (xcode, json, csv, checkstyle, junit)
 
 excluded: # paths to ignore during linting. Takes precedence over `included`.
-  - Pods
+  - build
+  - .build
 
 # If you need help with rules run $ swiftlint 
 
@@ -20,7 +21,6 @@ opt_in_rules:
   - force_cast
   - force_unwrapping
   - implicitly_unwrapped_optional
-  - missing_docs
   - multiline_parameters
   - multiple_empty_lines
   - nesting
@@ -37,13 +37,7 @@ opt_in_rules:
   - vertical_whitespace
 
 disabled_rules: # rule identifiers to exclude from running
-  # - force_try
-  # - class_delegate_protocol
-  # - function_parameter_count
-  # - function_body_length
-  # - todo
-  # - discarded_notification_center_observer
-  # - conditional_returns_on_newline
+  - fmissing_docs
 
 cyclomatic_complexity:
   ignores_case_statements: true

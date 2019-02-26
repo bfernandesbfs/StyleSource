@@ -45,7 +45,7 @@ internal class FontParser {
             Keys.hash: hash,
             Keys.group: data,
             Keys.structure: structure,
-            Keys.core: required
+            Keys.core: required,
         ]
 
         return context
