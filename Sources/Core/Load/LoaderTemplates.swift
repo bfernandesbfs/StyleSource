@@ -38,10 +38,8 @@ internal class LoaderTemplates {
 
         if let path = bundle.object(forInfoDictionaryKey: "TemplatePath") as? String, !path.isEmpty {
             return Path(applicationPath) + Path(path)
-        } else if let path = bundle.path(forResource: "templates", ofType: nil) {
-            return Path(path)
+        } else {
+            return Path(bundle.bundlePath) + Path("../share/StyleSource/templates")
         }
-
-        throw Errors.templateNotFound(path: "Invalid")
     }
 }
