@@ -20,7 +20,7 @@ make
 
 ```shell
 git clone https://github.com/bfernandesbfs/StyleSource.git
-cd XcodeGen
+cd StyleSource
 swift run StyleSource
 ```
 
