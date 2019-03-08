@@ -81,6 +81,7 @@ public class Command {
             let hash = try hashFileContents(atPath: inputPath.normalize().string)
 
             if try matchesHash(generatedSwiftPath: outputPath, structureName: structure, hash: hash) {
+                logMessage(.info, "Skipping already up-to-date file at: \(inputName)")
                 continue
             }
 
@@ -107,6 +108,6 @@ public class Command {
             return false
         }
 
-        return splitLine[0] == structureName && splitLine[1] == hash
+        return splitLine[1] == structureName && splitLine[2] == hash
     }
 }
