@@ -12,15 +12,20 @@ import Yams
 
 public class Command {
 
+    private let cliArguments: [String]
+    private var arguments: Arguments = Arguments.default
     private let loader: LoaderTemplates
 
-    public init() {
+    public init(cliArguments: [String]) {
+        self.cliArguments = cliArguments
         loader = LoaderTemplates(bundle: Bundle.main)
     }
 
     public func staticMode() {
 
         do {
+            arguments = try Arguments.parse(from: cliArguments)
+
             let entry = try checkEntry()
             let render = RenderFactory(template: try loader.fixture(), config: entry)
             try render.build()
@@ -77,12 +82,15 @@ public class Command {
             }
 
             let inputPath = currentPath + Path(inputName)
-            let outputPath = currentPath + Path(outputName)
             let hash = try hashFileContents(atPath: inputPath.normalize().string)
 
-            if try matchesHash(generatedSwiftPath: outputPath, structureName: structure, hash: hash) {
-                logMessage(.info, "Skipping already up-to-date file at: \(inputName)")
-                continue
+            if !arguments.alwaysOverride {
+                let outputPath = currentPath + Path(outputName)
+
+                if try matchesHash(generatedSwiftPath: outputPath, structureName: structure, hash: hash) {
+                    logMessage(.info, "Skipping already up-to-date file at: \(inputName)")
+                    continue
+                }
             }
 
             configs.append(ConfigEntry(template: templateType, currentPath: currentPath, hash: hash, data: item))
