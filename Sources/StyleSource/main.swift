@@ -6,7 +6,8 @@
 //  Copyright © 2018 bfs. All rights reserved.
 //
 
+import Foundation
 import Core
 
-let cmd = Command()
+let cmd = Command(cliArguments: Array(ProcessInfo.processInfo.arguments.dropFirst()))
 cmd.staticMode()
