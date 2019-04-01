@@ -40,7 +40,7 @@ namespace :cli do
 
     Utils.print_header 'Building Binary'
     Utils.run(
-      %(swift build -c=release),
+      %(swift build -c=release -Xswiftc -suppress-warnings),
       task, xcrun: true, formatter: :xcpretty
     )
   end

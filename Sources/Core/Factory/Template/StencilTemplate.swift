@@ -45,7 +45,7 @@ public class StencilTemplate: Stencil.Template {
 
 internal extension Extension {
 
-    internal func registerExtensions() {
+    func registerExtensions() {
         registerStringsFilters()
     }
 

@@ -6,7 +6,7 @@ The Swift code generator for your theme.
 
 Make sure Xcode 10.0+ is installed first.
 
-### Make
+### Make`
 
 ```shell
 git clone https://github.com/bfernandesbfs/StyleSource.git

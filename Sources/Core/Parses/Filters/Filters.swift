@@ -29,7 +29,7 @@ internal enum Filters {
 // MARK: - Strings Filters
 internal extension Filters {
 
-    internal enum Strings {
+    enum Strings {
 
         internal static func reviseName(_ value: Any?) throws -> String {
             let string = try Filters.parseString(from: value)
